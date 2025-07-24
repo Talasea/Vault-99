@@ -1,0 +1,10 @@
+Endpoint-Sicherheit, auch als Endpunktsicherheit bekannt, ist ein Prozess, der darauf abzielt, die verschiedenen Endgeräte in einem Netzwerk vor verschiedenen Bedrohungen zu schützen. Dies umfasst technische und organisatorische Maßnahmen, um den unbefugten Zugriff auf Geräte oder die Ausführung schädlicher Software zu verhindern. Ziel ist es sicherzustellen, dass die Endgeräte ein gewünschtes Sicherheitsniveau erreichen.
+
+Endpoint-Sicherheit hilft dabei, Risiken im gesamten Unternehmen zu erkennen und zu reduzieren. Sie schützt die an ein Netzwerk angeschlossenen Endgeräte (Endpunkte) vor Bedrohungen durch Dritte. Dies beinhaltet die Sicherung jedes Geräts in Echtzeit, das auf ein Unternehmensnetzwerk zugreift.
+
+Zu den Technologien zur Bedrohungserkennung gehören vollständiger Endpunktschutz, Bedrohungsabwehr, Anti-Ransomware sowie Endpunkt-Erkennung und -Reaktion. Solche Technologien helfen dabei, Mitarbeiter und Daten zu schützen.
+
+Für Unternehmen gibt es verschiedene Lösungen zur Implementierung von Endpoint-Sicherheit. Zum Beispiel bietet Proofpoint eine Human-Centric Security-Plattform, die es ermöglicht, Mitarbeiter und Daten zu schützen, unabhängig davon, wo sie arbeiten. Check Point bietet ebenfalls eine Lösung, die vollständigen Endpunktschutz, Bedrohungsabwehr, Anti-Ransomware sowie Endpunkt-Erkennung und -Reaktion umfasst.
+
+
+Die Endpoint Security versucht durch verschiedene organisatorische und technische Maßnahmen die Endgeräte in einem Netzwerk vor internen und externen Bedrohungen zu schützen und unbefugte Zugriffe zu verhindern. Schützenswerte Endgeräte sind beispielsweise PCs, Tablets, Smartphones, Drucker, Scanner oder andere mit dem Netzwerk verbundene Geräte wie Kassenterminals. Durch die zunehmende Anzahl vernetzter Geräte und Konzepte wie Bring Your Own Device (BYOD) hat die Endpunktsicherheit für Unternehmen eine zunehmende Bedeutung erlangt. Technische Sicherheitsmaßnahmen der Endpoint Security sind beispielsweise der Antiviren-Schutz, die Client-basierte Intrusion Prevention oder das Device Management von Peripheriegeräten wie externen USB-Speichergeräten.

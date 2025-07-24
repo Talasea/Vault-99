@@ -1,0 +1,6 @@
+
+Die lokale Sicherheitsautorität (Local Security Authority, LSA) ist ein Sicherheitssystem von Microsoft Windows. Sie ist für die Überprüfung von Benutzeranmeldeinformationen und die Durchsetzung von lokalen Sicherheitsrichtlinien verantwortlich. Der LSASS-Prozess (Local Security Authority Subsystem Service) ist ein wesentlicher Teil des LSA-Systems und wird verwendet, um Benutzer für die lokale und Remoteanmeldung zu überprüfen, Passwörter zu verwalten und Zugriffstoken zu erstellen.
+
+Ab Windows 8.1 bietet Microsoft zusätzlichen Schutz für den LSA-Prozess, um Codeeinschleusungen durch nicht geschützte Prozesse zu verhindern. Dies verbessert die Sicherheit der Anmeldeinformationen, die von der lokalen Sicherheitsautorität verwaltet werden.
+
+Der Prozess lsass.exe, der den LSASS-Prozess ausführt, befindet sich standardmäßig im System32-Ordner. Wenn der Prozess sich in einem anderen Ordner befindet, könnte es sich um eine gefährliche Software handeln. Es ist ratsam, den Computer mit einem Anti-Virus-Tool wie dem Security Task Manager oder Avira zu überprüfen, wenn man unsicher ist, ob der Prozess echt ist oder ein Virus ist.

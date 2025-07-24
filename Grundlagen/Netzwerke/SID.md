@@ -1,0 +1,11 @@
+Eine SID, oder Sicherheitsbezeichner (Security Identifier), ist ein eindeutiger Bezeichner für Sicherheitsprinzipale in Microsoft Windows. Sie wird verwendet, um Benutzerkonten, Gruppen und Computer eindeutig zu identifizieren. Hier sind einige wichtige Informationen zu SIDs:
+
+- **Definition**: Eine SID ist eine eindeutige Bezeichnung für Sicherheitsprinzipale, die in einem Windows-Betriebssystem verwendet wird. Sie dient dazu, Benutzerkonten, Gruppen und Computer eindeutig zu identifizieren und zu verwalten.
+- **Struktur**: SIDs bestehen aus einer Bezeichnerautorität und einer Reihe von Rangbezeichnern (RIDs). Die Bezeichnerautorität gibt an, wer die SID erteilt hat, und die Ränge sind eindeutige Zahlen, die innerhalb der Bezeichnerautorität eindeutig sind.
+- **Verwendung**: SIDs werden in Zugriffssteuerungslisten (ACLs) verwendet, um Berechtigungen für Benutzer und Gruppen zu definieren. Sie helfen dabei, den Zugriff auf Ressourcen in einem Windows-Netzwerk zu kontrollieren.
+- **Beispiel für eine SID**: Eine typische SID könnte wie `S-1-5-21-3364551897-3548715782-1584970928-1001` aussehen. Diese spezifische SID identifiziert einen bestimmten Benutzer in einer bestimmten Domäne.
+- **Erstellen von SIDs**: SIDs werden automatisch von Windows erstellt, wenn neue Benutzerkonten oder Gruppen erstellt werden. Sie können auch manuell erstellt werden, wenn es erforderlich ist, spezielle Berechtigungen zu definieren.
+- **Suchen von SIDs**: Sie können die SIDs von Benutzerkonten oder Gruppen in Windows mithilfe der Eingabeaufforderung, der PowerShell oder des Registrierungseditors finden. Dazu gibt es spezielle Befehle und Pfade, die verwendet werden können.
+- **Verwaiste SIDs**: Verwaiste SIDs sind SIDs, die auf Benutzer oder Gruppen verweisen, die nicht mehr existieren. Sie können in der Active Directory-Verwaltung zu sehen sein und können zu Verwaltungsaufwand führen, sollten aber in der Regel kein großes Problem darstellen.
+- **System-SID**: Die SID `S-1-5-18` identifiziert das Systemkonto, das für lokale Dienste verwendet wird und standardmäßig Mitglied der Gruppe „Administratoren“ ist.
+- **Benutzer-SID**: Die SID `S-1-5-21-3364551897-3548715782-1584970928-1001` könnte beispielsweise die SID eines bestimmten Benutzers in einer bestimmten Domäne sein.

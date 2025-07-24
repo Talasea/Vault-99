@@ -1,0 +1,2 @@
+
+Data Loss Prevention (DLP) wird oft in einem Atemzug bzw. synonym für Data Leakage Prevention benutzt, obwohl es durchaus Unterschiede zwischen beiden Begriffen gibt. DLP meint präventive Abwehrmechanismen gegen Datenabfluss, der unangenehme Folgen für das betreffende Unternehmen haben kann. Data Loss Prevention soll also durch diverse Sicherheitsmechaniken und Strategien die Integrität und Vertraulichkeit von Daten schützen.

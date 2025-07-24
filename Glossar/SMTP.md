@@ -1,0 +1,21 @@
+as Simple Mail Transfer Protocol ist ein Protokoll zum Versenden von E-Mails in einem IP-Netz. Es kann zwischen einem E-Mail-Client und einem Postausgangsserver oder zwischen zwei SMTP-Servern zum Einsatz kommen. SMTP wird oft in Kombination mit den Protokollen IMAP oder POP3, mit denen sich E-Mails abholen lassen, zum Versenden von Mails verwendet.
+
+Die Abkürzung SMTP steht für Simple Mail Transfer Protocol und benennt ein Übertragungsprotokoll zum Übermitteln von E-Mails in einem [IP](https://www.ip-insider.de/was-ist-ip-a-812352/)-Netz. Im Gegensatz zu den Protokollen [IMAP](https://www.ip-insider.de/was-ist-imap-internet-message-access-protocol-a-691203/) oder [POP3](https://www.ip-insider.de/was-ist-pop3-post-office-protocol-a-691210/) wird SMTP nicht zum Abholen oder Verwalten, sondern zum Versenden von E-Mails verwendet.
+
+Prinzipiell handelt es sich um ein [Client](https://www.ip-insider.de/was-ist-ein-client-a-728753/)-Server-basiertes Protokoll, auch wenn SMTP nicht nur zwischen einem Client und einem Server, sondern auch zwischen zwei SMTP-Servern zum Einsatz kommen kann. In diesem Fall fungiert ein Server quasi als Client.
+
+Spezifiziert wurde das Simple Mail Transfer Protocol erstmals im Jahr 1982 im RFC 821. Über die Jahre kamen zahlreiche Erweiterungen und Ergänzungen hinzu, die in weiteren RFCs wie RFC 2821, RFC 1845, RFC 1870, RFC 1869, RFC 1894, RFC 1985 und vielen weiteren zu finden sind. Typische Programme für die Implementierung eines SMTP-Servers sind Postfix, qmail oder exim. In den Anfängen des Simple Mail Transfer Protocols fand die Übertragung in Form von reinen ASCII-Zeichen statt. Mit Standards wie MIME (Multipurpose Internet Mail Extensions) erhielt das Protokoll die Fähigkeit, durch Kodierung auch Binärdateien zu übertragen.
+
+### Die Funktionsweise des Simple Mail Transfer Protocols
+
+Da es sich beim Simple Mail Transfer Protocol um ein Client-Server-Protokoll handelt, haben die beiden Kommunikationspartner unterschiedliche Rollen. Der Client übernimmt die Aufgabe, eine Verbindung zum Server aufzubauen, und sendet diesem Kommandos und Informationen zum Ausführen der Transaktionen. Der Server ist für die Ausführung der Transaktionen zuständig und meldet das Ergebnis an den Client zurück.
+
+Standardmäßig nehmen SMTP-Server Verbindungsanfragen auf dem [Port](https://www.ip-insider.de/was-ist-ein-netzwerk-port-a-691212/) 25 entgegen. Es können aber auch andere Ports wie Port 587 zum Einsatz kommen. Zu Beginn der Verbindung findet eine Authentifizierung statt, bei der der Client mit einem Benutzernamen und einem Passwort seine Identität bestätigt. Anschließend kann die Übermittlung der E-Mails stattfinden. Hierfür sendet der Client dem Server Absender- und Empfängeradressen und den Inhalt der Mail sowie andere Informationen und Parameter. Nach der Übermittlung der E-Mail wird die Verbindung wieder beendet. Der E-Mail-Server beginnt anschließend mit der Übermittlung der E-Mail an einen anderen SMTP-Server. Hierfür nutzt er ebenfalls das Simple Mail Transfer Protocol, fungiert aber gegenüber der Gegenstelle als Client.
+
+Nur für die eigentliche Übermittlung einer E-Mail an den Server ist eine Online-Verbindung notwendig. Das Erstellen und Bearbeiten von E-Mails kann offline im E-Mail-Client erfolgen.
+
+### Besonderheiten und Sicherheitsaspekte des Simple Mail Transfer Protocols
+
+Eine wichtige Erweiterung des Simple Mail Transfer Protocols ist Extended SMTP (ESMTP) aus dem Jahr 1995 (RFC 1869). Mit Hilfe von ESMTP und dessen modularen Konzepts ist es möglich, weitere Befehle und Optionen zu implementieren. So gestattet ESMTP Optionen für die Authentifizierung, Verschlüsselung, den MIME-Transport oder für Bestätigungsmeldungen (DSN, Delivery Status Notifications).
+
+Das Simple Mail Transfer Protocol arbeitet ohne weitere Maßnahmen unverschlüsselt und überträgt alle Kommandos, Daten oder Authentifizierungsinformationen im Klartext. Um unbefugtes Mitlesen von Daten zu verhindern, kommt das Simple Mail Transfer Protocol zusammen mit der Verschlüsselung per SSL/[TLS](https://www.ip-insider.de/was-ist-tls-transport-layer-security-a-cf147a568e5966736d41ca88e78fcab2/) zum Einsatz. Unter Umständen nutzt ein Server für die verschlüsselte Verbindung eine anderen Port als den Standardport 25; beispielsweise den [TCP](https://www.ip-insider.de/was-ist-tcp-a-814290/)-Port 465.

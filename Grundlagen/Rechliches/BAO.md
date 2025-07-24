@@ -1,0 +1,3 @@
+**BAO: Besondere Aufbauorganisation**
+
+Die Besondere Aufbauorganisation (BAO) bezeichnet eine temporär eingerichtete Organisationsstruktur, die speziell für außergewöhnliche Situationen oder besondere Aufgaben geschaffen wird. Im Kontext des Business Continuity Managements (BCM) kommt die BAO beispielsweise bei Notfällen, Krisen oder Störungen zum Einsatz, um schnell und effektiv auf die jeweilige Situation reagieren zu können. Sie ergänzt die reguläre Aufbauorganisation (AAO) und stellt sicher, dass in Ausnahmesituationen klare Verantwortlichkeiten, Kommunikationswege und Entscheidungsstrukturen bestehen.

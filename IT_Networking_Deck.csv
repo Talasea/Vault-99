@@ -1,0 +1,201 @@
+Frage,Antwort
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Welche Schicht des OSI-Modells ist für Routing verantwortlich?,Die Netzwerkschicht (Layer 3)
+Welche OSI-Schicht enthält Protokolle wie TCP und UDP?,Die Transportschicht (Layer 4)
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Was bedeutet die Abkürzung DHCP?,Dynamic Host Configuration Protocol
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+"Was passiert, wenn ein DHCP-Lease abläuft?",Der Client muss eine neue IP-Adresse anfordern oder die bestehende erneuern
+Wofür steht DNS?,Domain Name System
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie funktioniert ein DNS-Resolver?,"Er fragt nacheinander verschiedene DNS-Server ab, um eine Domain aufzulösen"
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Welche Authentifizierungsmethode verwendet Active Directory hauptsächlich?,Kerberos
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Wie kann man ein Verzeichnis in PowerShell auflisten?,Get-ChildItem oder ls
+Wie erstellt man eine neue Datei in PowerShell?,New-Item -Path 'Pfad' -ItemType File
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Welche Editionen gibt es von Windows Server 2022?,"Standard, Datacenter, Essentials"
+Wie kann man Rollen und Features unter Windows Server 2022 verwalten?,Mit dem Server-Manager oder PowerShell
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+"Was passiert, wenn ein DHCP-Lease abläuft?",Der Client muss eine neue IP-Adresse anfordern oder die bestehende erneuern
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Welche Editionen gibt es von Windows Server 2022?,"Standard, Datacenter, Essentials"
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Welche OSI-Schicht enthält Protokolle wie TCP und UDP?,Die Transportschicht (Layer 4)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Welche Schicht des OSI-Modells ist für Routing verantwortlich?,Die Netzwerkschicht (Layer 3)
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welche Schicht des OSI-Modells ist für Routing verantwortlich?,Die Netzwerkschicht (Layer 3)
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Welche Editionen gibt es von Windows Server 2022?,"Standard, Datacenter, Essentials"
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Wie kann man ein Verzeichnis in PowerShell auflisten?,Get-ChildItem oder ls
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Welche Schicht des OSI-Modells ist für Routing verantwortlich?,Die Netzwerkschicht (Layer 3)
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Wie kann man ein Verzeichnis in PowerShell auflisten?,Get-ChildItem oder ls
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+"Welcher DNS-Eintrag wird verwendet, um eine Domain einer IP-Adresse zuzuordnen?",A-Record (IPv4) oder AAAA-Record (IPv6)
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Was ist ein Domänencontroller?,"Ein Server, der Active Directory-Dienste bereitstellt"
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Wie erstellt man eine neue Datei in PowerShell?,New-Item -Path 'Pfad' -ItemType File
+Welche Schicht des OSI-Modells ist für Routing verantwortlich?,Die Netzwerkschicht (Layer 3)
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Editionen gibt es von Windows Server 2022?,"Standard, Datacenter, Essentials"
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Wie nennt man das Hauptverzeichnis in Active Directory?,Forest (Wald)
+Welche Ports verwendet DHCP?,Ports 67 (Server) und 68 (Client)
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Wie lautet der Befehl zum Anzeigen aller laufenden Prozesse in PowerShell?,Get-Process
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Informationen kann ein DHCP-Server bereitstellen?,"IP-Adresse, Subnetzmaske, Gateway, DNS-Server, Lease-Zeit"
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Welche Schicht des OSI-Modells ist für MAC-Adressen zuständig?,Die Sicherungsschicht (Layer 2)
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Was ist Active Directory?,"Ein Verzeichnisdienst von Microsoft zur Verwaltung von Benutzern, Gruppen und Ressourcen"
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Welche Virtualisierungstechnologie ist in Windows Server 2022 enthalten?,Hyper-V
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie kann man ein Verzeichnis in PowerShell auflisten?,Get-ChildItem oder ls
+Wie viele Schichten hat das OSI-Modell?,Sieben Schichten
+Wofür steht DNS?,Domain Name System
+Welcher DNS-Eintrag wird für E-Mail-Routing verwendet?,MX-Record (Mail Exchanger)
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser
+Welches ist die aktuelle Server-Version von Microsoft?,Windows Server 2022
+Wie kann man einen Benutzer in Active Directory mit PowerShell erstellen?,New-ADUser

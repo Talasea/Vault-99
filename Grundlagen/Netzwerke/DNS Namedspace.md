@@ -1,0 +1,7 @@
+Das Domain Name System (DNS) ist ein hierarchisches System, das den Namensraum des Internets verwaltet. Es ermöglicht die Zuordnung von menschenlesbaren Domainnamen zu IP-Adressen, die von Computern verwendet werden. Der DNS-Namespace ist in sogenannte Zonen unterteilt, für die jeweils unabhängige Administratoren zuständig sind.
+
+Eine DNS-Zone ist eine administrative Unterteilung des DNS-Namespace und kann mehrere Subdomains beinhalten. Sie wird von einem bestimmten Unternehmen oder Administrator verwaltet und ermöglicht eine präzise Steuerung der DNS-Komponenten, wie autoritative Nameserver. Die DNS-Zone ist ein Teil des DNS-Namespace, der an der Spitze die DNS-Stammdomain hat.
+
+Der DNS-Namespace wird durch Root-Server, die für die Top-Level-Domains (TLD) zuständig sind, und durch autoritative und nichtautoritative DNS-Server verwaltet. Autoritative DNS-Server speichern gesicherte Domain-Informationen über eine bestimmte Zone in ihrer DNS-Datenbank. Nichtautoritative DNS-Server hingegen geben DNS-Informationen aus externen Quellen weiter und speichern diese temporär im Cache.
+
+In einer Active Directory-Umgebung ist es wichtig, dass der Entwurf des DNS-Namespace unter Berücksichtigung von Active Directory erstellt wird, um Konflikte mit dem internen Namespace zu vermeiden. Es wird empfohlen, verschiedene interne und externe Namespaces zu verwenden, um die Verwaltung zu erleichtern und Probleme bei der Namensauflösung zu vermeiden.

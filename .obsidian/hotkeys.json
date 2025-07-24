@@ -1,0 +1,14 @@
+{
+  "auto-anki:export-current-file-to-anki": [
+    {
+      "modifiers": [],
+      "key": "F8"
+    }
+  ],
+  "auto-anki:export-text-selection-to-anki": [
+    {
+      "modifiers": [],
+      "key": "F9"
+    }
+  ]
+}

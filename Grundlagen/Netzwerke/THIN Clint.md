@@ -1,0 +1,3 @@
+https://www.ip-insider.de/was-ist-ein-thin-client-a-607132/
+
+Ein Thin Client ist ein Computer, der seine Ressourcen nicht lokal auf einer Festplatte speichert, sondern über ein Netzwerk auf einem zentralen Server. Er arbeitet, indem er sich aus der Ferne mit einer Terminal-Server-Sitzung verbindet, in der die meisten Anwendungen und sensible Daten gespeichert sind. Thin Clients sind dadurch kostengünstiger, stabiler und erfordern weniger Wartung als herkömmliche Desktop-PCs. Sie sind jedoch abhängig von einer starken Netzwerkverbindung und eignen sich nicht für leistungsintensive Anwendungen.

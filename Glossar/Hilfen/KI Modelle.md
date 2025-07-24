@@ -1,0 +1,11 @@
+| **KI-Modell** | **Funktionen**                             | **Vorteile**                                      | **Nachteile**                                         | **Kosten**                          |
+| ------------- | ------------------------------------------ | ------------------------------------------------- | ----------------------------------------------------- | ----------------------------------- |
+| ChatGPT       | Textgenerierung, Übersetzung               | Vielseitig, leicht zugänglich                     | Antworten teils voreingenommen, nicht immer originell | Basis kostenlos, Plus 22 Euro/Monat |
+| Jasper AI     | Content-Marketing, Textanpassung           | Teamfähig, Markenorientierung                     | Hohe Kosten bei intensiver Nutzung                    | Ab 19 USD/Monat                     |
+| Google Gemini | Datenverarbeitung, Bilderstellung          | Große Kontextkapazität, benutzerdefinierte „Gems“ | Premium-Features in Google One kostenpflichtig        | ab 22Euro/Monat                     |
+| Claude AI     | Lange Dokumentverarbeitung, Python-Support | Sehr lange Kontextverarbeitung, File-Uploads      | Kein Internetzugang                                   | 20–30 USD/Monat                     |
+| Lumen5        | Blog-Artikel in Videos                     | Benutzerfreundlich, gute für Marketer             | Begrenzte Anpassungsoptionen                          | Ab 29 USD/Monat                     |
+| DALL-E 2      | Bildgenerierung aus Text                   | Beeindruckende Bildqualität                       | Kosten für Vielnutzer                                 | 15 USD für 115 Credits              |
+| CapCut        | Bild- und Videobearbeitung                 | Populär für mobile Bearbeitung                    | Konkurrenz mit spezialisierten Tools                  | Grundfunktionen kostenlos           |
+| Janitor AI    | Chatbots, Rollenspiel                      | Charaktererstellung, interaktiv                   | NSFW-Inhalte als Fokus                                | Kostenlos und kostenpflichtig       |
+| Grok          | allrounder                                 | wneig zensur                                      |                                                       | kostenlos und kostenpflichtig       |

@@ -1,0 +1,1231 @@
+#!/bin/bash
+
+# ================================================================
+# RASPBERRY PI 4B NETZWERKDATENERFASSUNG UND ANALYSE
+# ================================================================
+# Optimiert für:
+# - Maximale Stabilität und Zuverlässigkeit
+# - Effiziente Ressourcennutzung
+# - Hochwertige Datenerfassung mit robuster Speicherung
+# - Ausgereiftes Datentransfer-System zu externen Analysesystemen
+# ================================================================
+
+# Globale Konfigurationsvariablen
+DATA_DIR="/opt/netcapture"
+LOGS_DIR="$DATA_DIR/logs"
+PCAP_DIR="$DATA_DIR/pcaps"
+STATS_DIR="$DATA_DIR/stats"
+TRANSFER_DIR="$DATA_DIR/transfer"
+CONFIG_FILE="/etc/netcapture/config.json"
+REMOTE_SYNC_ENABLED=true
+
+# Watchdog-Konfiguration
+WATCHDOG_INTERVAL=60  # Sekunden
+
+# Funktion zur Ausgabe von Statusmeldungen mit Zeitstempel
+log_message() {
+  local level="$1"
+  local message="$2"
+  local timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+  echo "[$timestamp] [$level] $message" | tee -a "$LOGS_DIR/system.log"
+}
+
+# Funktion zum Überprüfen und Erstellen der Verzeichnisstruktur
+setup_directories() {
+  log_message "INFO" "Erstelle Verzeichnisstruktur"
+  
+  # Hauptverzeichnisse anlegen
+  for dir in "$DATA_DIR" "$LOGS_DIR" "$PCAP_DIR" "$STATS_DIR" "$TRANSFER_DIR"; do
+    if [ ! -d "$dir" ]; then
+      mkdir -p "$dir"
+      chmod 750 "$dir"
+    fi
+  done
+  
+  # Konfigurationsverzeichnis
+  if [ ! -d "/etc/netcapture" ]; then
+    mkdir -p "/etc/netcapture"
+    chmod 750 "/etc/netcapture"
+  fi
+  
+  # Temporäres Verzeichnis für laufende Prozesse
+  if [ ! -d "/tmp/netcapture" ]; then
+    mkdir -p "/tmp/netcapture"
+    chmod 750 "/tmp/netcapture"
+  fi
+}
+
+# Funktion zum Laden oder Erstellen der Konfiguration
+setup_configuration() {
+  log_message "INFO" "Lade Konfiguration"
+  
+  if [ ! -f "$CONFIG_FILE" ]; then
+    log_message "WARN" "Keine Konfigurationsdatei gefunden, erstelle Standard-Konfiguration"
+    
+    # Wähle geeignete Netzwerk-Schnittstellen
+    AP_INTERFACE=$(find /sys/class/net -type l -not -path "*/lo" | head -n 1 | xargs basename)
+    INTERNET_INTERFACE=$(find /sys/class/net -type l -not -path "*/lo" -not -path "*/$AP_INTERFACE" | head -n 1 | xargs basename)
+    
+    # Erstelle Standardkonfiguration
+    cat > "$CONFIG_FILE" << EOF
+{
+  "network": {
+    "ap_interface": "$AP_INTERFACE",
+    "internet_interface": "$INTERNET_INTERFACE",
+    "ap_ip": "192.168.50.1",
+    "ap_netmask": "255.255.255.0",
+    "dhcp_range_start": "192.168.50.10",
+    "dhcp_range_end": "192.168.50.50"
+  },
+  "access_point": {
+    "ssid": "Research_AP_$(< /dev/urandom tr -dc 'a-zA-Z0-9' | head -c 6)",
+    "channel": 7,
+    "hw_mode": "g",
+    "security": "WPA2",
+    "passphrase": "$(< /dev/urandom tr -dc 'a-zA-Z0-9!@#$%^&*()_+' | head -c 16)"
+  },
+  "data_collection": {
+    "capture_interval": 600,
+    "rotation_interval": 3600,
+    "stats_interval": 300,
+    "compression_enabled": true,
+    "max_storage_percent": 75,
+    "pcap_filter": "not port 22"
+  },
+  "remote_sync": {
+    "enabled": $REMOTE_SYNC_ENABLED,
+    "method": "scp",
+    "host": "192.168.1.100",
+    "user": "researcher",
+    "keyfile": "/root/.ssh/transfer_key",
+    "remote_dir": "/data/netcapture",
+    "sync_interval": 1800
+  }
+}
+EOF
+    chmod 640 "$CONFIG_FILE"
+  fi
+  
+  # Lade Konfigurationswerte
+  AP_INTERFACE=$(jq -r '.network.ap_interface' "$CONFIG_FILE")
+  INTERNET_INTERFACE=$(jq -r '.network.internet_interface' "$CONFIG_FILE")
+  AP_IP=$(jq -r '.network.ap_ip' "$CONFIG_FILE")
+  AP_NETMASK=$(jq -r '.network.ap_netmask' "$CONFIG_FILE")
+  DHCP_RANGE_START=$(jq -r '.network.dhcp_range_start' "$CONFIG_FILE")
+  DHCP_RANGE_END=$(jq -r '.network.dhcp_range_end' "$CONFIG_FILE")
+  
+  AP_SSID=$(jq -r '.access_point.ssid' "$CONFIG_FILE")
+  AP_CHANNEL=$(jq -r '.access_point.channel' "$CONFIG_FILE")
+  AP_HW_MODE=$(jq -r '.access_point.hw_mode' "$CONFIG_FILE")
+  AP_SECURITY=$(jq -r '.access_point.security' "$CONFIG_FILE")
+  AP_PASSPHRASE=$(jq -r '.access_point.passphrase' "$CONFIG_FILE")
+  
+  CAPTURE_INTERVAL=$(jq -r '.data_collection.capture_interval' "$CONFIG_FILE")
+  ROTATION_INTERVAL=$(jq -r '.data_collection.rotation_interval' "$CONFIG_FILE")
+  STATS_INTERVAL=$(jq -r '.data_collection.stats_interval' "$CONFIG_FILE")
+  COMPRESSION_ENABLED=$(jq -r '.data_collection.compression_enabled' "$CONFIG_FILE")
+  MAX_STORAGE_PERCENT=$(jq -r '.data_collection.max_storage_percent' "$CONFIG_FILE")
+  PCAP_FILTER=$(jq -r '.data_collection.pcap_filter' "$CONFIG_FILE")
+  
+  REMOTE_SYNC_ENABLED=$(jq -r '.remote_sync.enabled' "$CONFIG_FILE")
+  REMOTE_SYNC_METHOD=$(jq -r '.remote_sync.method' "$CONFIG_FILE")
+  REMOTE_SYNC_HOST=$(jq -r '.remote_sync.host' "$CONFIG_FILE")
+  REMOTE_SYNC_USER=$(jq -r '.remote_sync.user' "$CONFIG_FILE")
+  REMOTE_SYNC_KEYFILE=$(jq -r '.remote_sync.keyfile' "$CONFIG_FILE")
+  REMOTE_SYNC_DIR=$(jq -r '.remote_sync.remote_dir' "$CONFIG_FILE")
+  REMOTE_SYNC_INTERVAL=$(jq -r '.remote_sync.sync_interval' "$CONFIG_FILE")
+  
+  # Validiere kritische Konfigurationsparameter
+  if [ ! -e "/sys/class/net/$AP_INTERFACE" ]; then
+    log_message "ERROR" "Konfigurierte AP-Schnittstelle $AP_INTERFACE existiert nicht!"
+    log_message "WARN" "Prüfe verfügbare Schnittstellen und aktualisiere die Konfiguration:"
+    ip -br link show | grep -v "lo"
+    exit 1
+  fi
+  
+  if [ ! -e "/sys/class/net/$INTERNET_INTERFACE" ]; then
+    log_message "ERROR" "Konfigurierte Internet-Schnittstelle $INTERNET_INTERFACE existiert nicht!"
+    log_message "WARN" "Prüfe verfügbare Schnittstellen und aktualisiere die Konfiguration:"
+    ip -br link show | grep -v "lo"
+    exit 1
+  fi
+  
+  # Speichere Zugangsdaten zur Dokumentation
+  cat > "$DATA_DIR/access_credentials.txt" << EOF
+=================================================================
+WLAN ACCESS POINT CREDENTIALS
+=================================================================
+SSID: $AP_SSID
+Passwort: $AP_PASSPHRASE
+Kanal: $AP_CHANNEL
+Sicherheit: $AP_SECURITY
+=================================================================
+BITTE SICHER AUFBEWAHREN UND NACH ABSCHLUSS DES PROJEKTS LÖSCHEN!
+=================================================================
+EOF
+  chmod 600 "$DATA_DIR/access_credentials.txt"
+  
+  log_message "INFO" "Konfiguration geladen: AP=$AP_INTERFACE, Internet=$INTERNET_INTERFACE, SSID=$AP_SSID"
+}
+
+# Überprüfen und installieren der benötigten Abhängigkeiten
+install_dependencies() {
+  log_message "INFO" "Prüfe und installiere Abhängigkeiten"
+  
+  # Liste der erforderlichen Pakete
+  PACKAGES=(
+    "hostapd" "dnsmasq" "iptables-persistent" "tcpdump" "tshark" 
+    "sqlite3" "python3-pip" "jq" "haveged" "dstat" "iftop" "vnstat"
+    "zip" "rsync" "curl" "watchdog" "net-tools"
+  )
+  
+  # Python-Pakete
+  PYTHON_PACKAGES=(
+    "scapy" "pyshark" "pandas" "numpy" "requests" "schedule"
+    "psutil" "pytz" "dpkt" "pyyaml" "python-dateutil"
+  )
+  
+  # Installiere apt Pakete
+  apt update
+  for pkg in "${PACKAGES[@]}"; do
+    if ! dpkg -l | grep -q "^ii  $pkg "; then
+      log_message "INFO" "Installiere $pkg"
+      apt install -y "$pkg"
+    fi
+  done
+  
+  # Installiere Python Pakete
+  for pkg in "${PYTHON_PACKAGES[@]}"; do
+    if ! pip3 list | grep -q "$pkg"; then
+      log_message "INFO" "Installiere Python-Paket $pkg"
+      pip3 install "$pkg"
+    fi
+  done
+  
+  # Erstelle Python-Skript für Hilfsfunktionen
+  cat > "$DATA_DIR/helpers.py" << 'EOF'
+#!/usr/bin/env python3
+import os
+import sys
+import json
+import time
+import sqlite3
+import pandas as pd
+import numpy as np
+import dpkt
+import socket
+import datetime
+import psutil
+import yaml
+import schedule
+import subprocess
+from pathlib import Path
+
+# Basisfunktionen für Datenanalyse und -vorverarbeitung
+def analyze_pcap(pcap_file, output_file):
+    """Einfache Analyse eines PCAP-Files mit grundlegenden Statistiken"""
+    try:
+        result = subprocess.run(
+            ["tshark", "-r", pcap_file, "-q", "-z", "io,stat,1", "-z", "endpoints", "-z", "conv,ip"],
+            capture_output=True, text=True
+        )
+        with open(output_file, 'w') as f:
+            f.write(result.stdout)
+        return True
+    except Exception as e:
+        print(f"Fehler bei der PCAP-Analyse: {e}", file=sys.stderr)
+        return False
+
+def extract_device_data(pcap_file, db_file):
+    """Extrahiert Gerätedaten aus PCAP und speichert in SQLite"""
+    try:
+        conn = sqlite3.connect(db_file)
+        # Implementiere die Extraktion von MAC-Adressen, Herstellern, etc.
+        # und speichere sie in der Datenbank
+        conn.close()
+        return True
+    except Exception as e:
+        print(f"Fehler bei der Geräteextraktion: {e}", file=sys.stderr)
+        return False
+
+def anonymize_pcap(input_file, output_file):
+    """Anonymisiert ein PCAP-File durch Ersetzen von MAC- und IP-Adressen"""
+    try:
+        # Implementiere PCAP-Anonymisierung
+        # Dies kann mit einem Tool wie TCPdpriv oder einem eigenen Skript erfolgen
+        return True
+    except Exception as e:
+        print(f"Fehler bei der PCAP-Anonymisierung: {e}", file=sys.stderr)
+        return False
+
+def check_system_health():
+    """Überprüft die Systemgesundheit und gibt Bericht zurück"""
+    health = {
+        "timestamp": datetime.datetime.now().isoformat(),
+        "cpu_percent": psutil.cpu_percent(),
+        "memory_percent": psutil.virtual_memory().percent,
+        "disk_percent": psutil.disk_usage('/').percent,
+        "temperature": None,
+        "network": {}
+    }
+    
+    # Raspberry Pi Temperatur auslesen
+    try:
+        with open('/sys/class/thermal/thermal_zone0/temp', 'r') as f:
+            health["temperature"] = float(f.read()) / 1000
+    except:
+        pass
+    
+    # Netzwerkstatistiken sammeln
+    net_io = psutil.net_io_counters(pernic=True)
+    for interface, stats in net_io.items():
+        health["network"][interface] = {
+            "bytes_sent": stats.bytes_sent,
+            "bytes_recv": stats.bytes_recv,
+            "packets_sent": stats.packets_sent,
+            "packets_recv": stats.packets_recv
+        }
+    
+    return health
+
+if __name__ == "__main__":
+    # Einfache Kommandozeilen-Schnittstelle für Testausführungen
+    import argparse
+    parser = argparse.ArgumentParser(description='Netzwerkdaten-Analyse-Hilfsskript')
+    parser.add_argument('--analyze', help='PCAP-Datei zur Analyse')
+    parser.add_argument('--output', help='Ausgabedatei')
+    parser.add_argument('--health', action='store_true', help='Systemgesundheit prüfen')
+    
+    args = parser.parse_args()
+    
+    if args.analyze and args.output:
+        success = analyze_pcap(args.analyze, args.output)
+        print(f"Analyse {'erfolgreich' if success else 'fehlgeschlagen'}")
+    
+    if args.health:
+        health = check_system_health()
+        print(json.dumps(health, indent=2))
+EOF
+  chmod +x "$DATA_DIR/helpers.py"
+  
+  # Vorbereiten der SQLite-Datenbank
+  cat > "$DATA_DIR/prepare_db.sql" << 'EOF'
+-- Erstelle Tabellen für die Datenerfassung
+
+-- Tabelle für erkannte Geräte
+CREATE TABLE IF NOT EXISTS devices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    mac_address TEXT UNIQUE,
+    first_seen TIMESTAMP,
+    last_seen TIMESTAMP,
+    manufacturer TEXT,
+    hostname TEXT,
+    device_type TEXT,
+    os_guess TEXT,
+    signal_strength INTEGER,
+    connection_count INTEGER DEFAULT 0
+);
+
+-- Tabelle für Netzwerkverbindungen
+CREATE TABLE IF NOT EXISTS connections (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp TIMESTAMP,
+    src_mac TEXT,
+    dst_mac TEXT,
+    src_ip TEXT,
+    dst_ip TEXT,
+    src_port INTEGER,
+    dst_port INTEGER,
+    protocol TEXT,
+    bytes_sent INTEGER,
+    bytes_received INTEGER,
+    duration_seconds REAL,
+    pcap_file TEXT
+);
+
+-- Tabelle für Systemstatus
+CREATE TABLE IF NOT EXISTS system_status (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp TIMESTAMP,
+    cpu_percent REAL,
+    memory_percent REAL,
+    disk_percent REAL,
+    temperature REAL,
+    uptime_seconds INTEGER,
+    active_connections INTEGER,
+    capture_running BOOLEAN
+);
+
+-- Indizes für bessere Abfrageleistung
+CREATE INDEX IF NOT EXISTS idx_devices_mac ON devices(mac_address);
+CREATE INDEX IF NOT EXISTS idx_connections_timestamp ON connections(timestamp);
+CREATE INDEX IF NOT EXISTS idx_connections_src_mac ON connections(src_mac);
+CREATE INDEX IF NOT EXISTS idx_connections_dst_mac ON connections(dst_mac);
+CREATE INDEX IF NOT EXISTS idx_system_status_timestamp ON system_status(timestamp);
+EOF
+  
+  sqlite3 "$DATA_DIR/capture.db" < "$DATA_DIR/prepare_db.sql"
+  chmod 640 "$DATA_DIR/capture.db"
+  
+  log_message "INFO" "Abhängigkeiten erfolgreich installiert"
+}
+
+# Access Point konfigurieren
+configure_access_point() {
+  log_message "INFO" "Konfiguriere Access Point"
+  
+  # Static IP für AP-Interface einrichten
+  cat > "/etc/dhcpcd.conf" << EOF
+# Konfiguration für AP
+interface $AP_INTERFACE
+  static ip_address=$AP_IP/24
+  nohook wpa_supplicant
+EOF
+  
+  # hostapd konfigurieren
+  cat > "/etc/hostapd/hostapd.conf" << EOF
+# Access Point Konfiguration
+interface=$AP_INTERFACE
+driver=nl80211
+ssid=$AP_SSID
+hw_mode=$AP_HW_MODE
+channel=$AP_CHANNEL
+wmm_enabled=1
+country_code=DE
+ieee80211d=1
+ieee80211n=1
+
+# Sicherheitsoptionen
+auth_algs=1
+wpa=2
+wpa_passphrase=$AP_PASSPHRASE
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=CCMP
+rsn_pairwise=CCMP
+ieee80211w=1  # Management Frame Protection
+EOF
+  
+  chmod 600 "/etc/hostapd/hostapd.conf"
+  
+  # hostapd daemon konfigurieren
+  echo "DAEMON_CONF=\"/etc/hostapd/hostapd.conf\"" > "/etc/default/hostapd"
+  
+  # dnsmasq konfigurieren
+  mv "/etc/dnsmasq.conf" "/etc/dnsmasq.conf.orig" 2>/dev/null
+  
+  cat > "/etc/dnsmasq.conf" << EOF
+# DHCP und DNS Konfiguration für Access Point
+interface=$AP_INTERFACE
+dhcp-range=$DHCP_RANGE_START,$DHCP_RANGE_END,24h
+dhcp-option=3,$AP_IP  # Default Gateway
+dhcp-option=6,$AP_IP  # DNS-Server
+no-hosts
+domain-needed
+bogus-priv
+expand-hosts
+server=1.1.1.1
+server=9.9.9.9
+log-queries
+log-dhcp
+address=/#/$AP_IP
+EOF
+  
+  # Dienste aktivieren
+  systemctl unmask hostapd
+  systemctl enable hostapd
+  systemctl enable dnsmasq
+  
+  log_message "INFO" "Access Point konfiguriert: SSID=$AP_SSID"
+}
+
+# NAT und IP-Forwarding konfigurieren
+configure_networking() {
+  log_message "INFO" "Konfiguriere Netzwerk-Forwarding"
+  
+  # IP-Forwarding in sysctl.conf aktivieren
+  sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' "/etc/sysctl.conf"
+  echo 1 > "/proc/sys/net/ipv4/ip_forward"
+  
+  # NAT-Regeln konfigurieren
+  iptables -t nat -F
+  iptables -F
+  
+  # Standardregeln für Firewall
+  iptables -P INPUT DROP
+  iptables -P FORWARD DROP
+  iptables -P OUTPUT ACCEPT
+  
+  # Erlaubter eingehender Traffic
+  iptables -A INPUT -i lo -j ACCEPT
+  iptables -A INPUT -i $AP_INTERFACE -j ACCEPT
+  iptables -A INPUT -i $INTERNET_INTERFACE -m state --state ESTABLISHED,RELATED -j ACCEPT
+  
+  # NAT-Konfiguration
+  iptables -t nat -A POSTROUTING -o $INTERNET_INTERFACE -j MASQUERADE
+  iptables -A FORWARD -i $INTERNET_INTERFACE -o $AP_INTERFACE -m state --state RELATED,ESTABLISHED -j ACCEPT
+  iptables -A FORWARD -i $AP_INTERFACE -o $INTERNET_INTERFACE -j ACCEPT
+  
+  # Transparenter HTTP(S) Proxy (optional für tiefere Analyse)
+  #iptables -t nat -A PREROUTING -i $AP_INTERFACE -p tcp --dport 80 -j REDIRECT --to-port 8080
+  #iptables -t nat -A PREROUTING -i $AP_INTERFACE -p tcp --dport 443 -j REDIRECT --to-port 8443
+  
+  # iptables-Regeln speichern
+  mkdir -p "/etc/iptables"
+  iptables-save > "/etc/iptables/rules.v4"
+  
+  log_message "INFO" "Netzwerk-Forwarding konfiguriert"
+}
+
+# Funktion zur Konfiguration der Datenerfassung
+configure_data_capture() {
+  log_message "INFO" "Konfiguriere Datenerfassung"
+  
+  # tcpdump-Startskript
+  cat > "$DATA_DIR/start_capture.sh" << EOF
+#!/bin/bash
+
+# Variablen
+INTERFACE="$AP_INTERFACE"
+OUTPUT_DIR="$PCAP_DIR"
+ROTATION_INTERVAL=$ROTATION_INTERVAL
+FILTER="$PCAP_FILTER"
+PID_FILE="/tmp/netcapture/tcpdump.pid"
+LOG_FILE="$LOGS_DIR/tcpdump.log"
+
+# Timestamp für Dateinamen
+TIMESTAMP=\$(date +%Y%m%d_%H%M%S)
+OUTPUT_FILE="\$OUTPUT_DIR/capture_\$TIMESTAMP.pcap"
+
+# Prüfen, ob bereits eine Erfassung läuft
+if [ -f "\$PID_FILE" ] && kill -0 \$(cat "\$PID_FILE") 2>/dev/null; then
+  echo "Erfassung läuft bereits mit PID \$(cat "\$PID_FILE")"
+  exit 0
+fi
+
+# Starte tcpdump mit Rotation
+/usr/bin/tcpdump -i "\$INTERFACE" -w "\$OUTPUT_FILE" -G "\$ROTATION_INTERVAL" -W 24 -Z root "\$FILTER" &
+TCPDUMP_PID=\$!
+
+# Speichere PID
+echo \$TCPDUMP_PID > "\$PID_FILE"
+
+echo "Erfassung gestartet mit PID \$TCPDUMP_PID, Ausgabe in \$OUTPUT_FILE"
+EOF
+  chmod +x "$DATA_DIR/start_capture.sh"
+  
+  # Skript zum Stoppen der Erfassung
+  cat > "$DATA_DIR/stop_capture.sh" << EOF
+#!/bin/bash
+
+PID_FILE="/tmp/netcapture/tcpdump.pid"
+
+if [ -f "\$PID_FILE" ]; then
+  TCPDUMP_PID=\$(cat "\$PID_FILE")
+  if kill -0 "\$TCPDUMP_PID" 2>/dev/null; then
+    echo "Stoppe Erfassung mit PID \$TCPDUMP_PID"
+    kill "\$TCPDUMP_PID"
+    rm "\$PID_FILE"
+  else
+    echo "Erfassungsprozess nicht mehr aktiv, bereinige PID-Datei"
+    rm "\$PID_FILE"
+  fi
+else
+  echo "Keine laufende Erfassung gefunden"
+fi
+EOF
+  chmod +x "$DATA_DIR/stop_capture.sh"
+  
+  # Skript zur Erfassung von WLAN-Clients
+  cat > "$DATA_DIR/collect_clients.sh" << EOF
+#!/bin/bash
+
+OUTPUT_FILE="$STATS_DIR/clients_\$(date +%Y%m%d_%H%M%S).json"
+DB_FILE="$DATA_DIR/capture.db"
+
+# Verbundene Clients erfassen
+CLIENTS=\$(iw dev $AP_INTERFACE station dump | grep -E 'Station|signal|inactive|rx bytes|tx bytes' | awk '{printf "%s ", \$0} /tx bytes/ {print ""}' | sed 's/Station/\nStation/g')
+
+# In JSON-Format konvertieren
+echo "{" > "\$OUTPUT_FILE"
+echo "  \"timestamp\": \"\$(date -Iseconds)\"," >> "\$OUTPUT_FILE"
+echo "  \"clients\": [" >> "\$OUTPUT_FILE"
+
+first=true
+while IFS= read -r line; do
+  if [[ \$line == Station* ]]; then
+    mac=\$(echo "\$line" | grep -oE '([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}')
+    signal=\$(echo "\$line" | grep -oE 'signal:.*dBm' | grep -oE '-[0-9]+')
+    inactive=\$(echo "\$line" | grep -oE 'inactive time:.*ms' | grep -oE '[0-9]+')
+    rx_bytes=\$(echo "\$line" | grep -oE 'rx bytes:.*' | grep -oE '[0-9]+')
+    tx_bytes=\$(echo "\$line" | grep -oE 'tx bytes:.*' | grep -oE '[0-9]+')
+    
+    if [ "\$first" = true ]; then
+      first=false
+    else
+      echo "," >> "\$OUTPUT_FILE"
+    fi
+    
+    echo "    {" >> "\$OUTPUT_FILE"
+    echo "      \"mac\": \"\$mac\"," >> "\$OUTPUT_FILE"
+    echo "      \"signal\": \$signal," >> "\$OUTPUT_FILE"
+    echo "      \"inactive_ms\": \$inactive," >> "\$OUTPUT_FILE"
+    echo "      \"rx_bytes\": \$rx_bytes," >> "\$OUTPUT_FILE"
+    echo "      \"tx_bytes\": \$tx_bytes" >> "\$OUTPUT_FILE"
+    echo "    }" >> "\$OUTPUT_FILE"
+    
+    # In Datenbank speichern
+    if [ -f "\$DB_FILE" ]; then
+      # MAC-Adresse in der Datenbank aktualisieren oder hinzufügen
+      sqlite3 "\$DB_FILE" "INSERT INTO devices (mac_address, first_seen, last_seen, signal_strength) 
+                          VALUES ('\$mac', datetime('now'), datetime('now'), \$signal) 
+                          ON CONFLICT(mac_address) 
+                          DO UPDATE SET last_seen=datetime('now'), signal_strength=\$signal, connection_count=connection_count+1;"
+    fi
+  fi
+done <<< "\$CLIENTS"
+
+echo "  ]" >> "\$OUTPUT_FILE"
+echo "}" >> "\$OUTPUT_FILE"
+
+# Komprimieren, wenn aktiviert
+if [ "$COMPRESSION_ENABLED" = "true" ]; then
+  gzip "\$OUTPUT_FILE"
+fi
+
+echo "Client-Daten in \$OUTPUT_FILE gespeichert"
+EOF
+  chmod +x "$DATA_DIR/collect_clients.sh"
+  
+  # Systemstatistiken sammeln
+  cat > "$DATA_DIR/collect_stats.sh" << EOF
+#!/bin/bash
+
+OUTPUT_FILE="$STATS_DIR/system_\$(date +%Y%m%d_%H%M%S).json"
+DB_FILE="$DATA_DIR/capture.db"
+
+# CPU-Temperatur
+if [ -f "/sys/class/thermal/thermal_zone0/temp" ]; then
+  CPU_TEMP=\$(awk '{printf "%.1f", \$1/1000}' /sys/class/thermal/thermal_zone0/temp)
+else
+  CPU_TEMP="N/A"
+fi
+
+# CPU-Auslastung
+CPU_USAGE=\$(top -bn1 | grep "Cpu(s)" | awk '{print \$2 + \$4}')
+
+# Speichernutzung
+MEM_TOTAL=\$(free -m | awk '/^Mem:/ {print \$2}')
+MEM_USED=\$(free -m | awk '/^Mem:/ {print \$3}')
+MEM_PERCENT=\$(awk "BEGIN {printf \"%.1f\", \$MEM_USED/\$MEM_TOTAL*100}")
+
+# Festplattennutzung
+DISK_PERCENT=\$(df -h / | awk '/\// {print \$(NF-1)}' | sed 's/%//')
+
+# Netzwerkstatistiken
+NET_STATS=\$(ifconfig $AP_INTERFACE | grep -E "RX packets|TX packets")
+RX_PACKETS=\$(echo "\$NET_STATS" | grep "RX packets" | awk '{print \$3}' | sed 's/packets://')
+TX_PACKETS=\$(echo "\$NET_STATS" | grep "TX packets" | awk '{print \$3}' | sed 's/packets://')
+
+# Uptime
+UPTIME_SEC=\$(awk '{print \$1}' /proc/uptime | cut -d. -f1)
+
+# Erfassung des Verbindungsstatus
+if [ -f "/tmp/netcapture/tcpdump.pid" ] && kill -0 \$(cat "/tmp/netcapture/tcpdump.pid") 2>/dev/null; then
+  CAPTURE_RUNNING=true
+else
+  CAPTURE_RUNNING=false
+fi
+
+# Anzahl der verbundenen Clients
+CONNECTED_CLIENTS=\$(iw dev $AP_INTERFACE station dump | grep "Station" | wc -l)
+
+# JSON-Ausgabe
+echo "{" > "\$OUTPUT_FILE"
+echo "  \"timestamp\": \"\$(date -Iseconds)\"," >> "\$OUTPUT_FILE"
+echo "  \"system\": {" >> "\$OUTPUT_FILE"
+echo "    \"cpu_temp\": \"\$CPU_TEMP\"," >> "\$OUTPUT_FILE"
+echo "    \"cpu_usage\": \$CPU_USAGE," >> "\$OUTPUT_FILE"
+echo "    \"memory_total_mb\": \$MEM_TOTAL," >> "\$OUTPUT_FILE"
+echo "    \"memory_used_mb\": \$MEM_USED," >> "\$OUTPUT_FILE"
+echo "    \"memory_percent\": \$MEM_PERCENT," >> "\$OUTPUT_FILE"
+echo "    \"disk_percent\": \$DISK_PERCENT," >> "\$OUTPUT_FILE"
+echo "    \"uptime_seconds\": \$UPTIME_SEC" >> "\$OUTPUT_FILE"
+echo "  }," >> "\$OUTPUT_FILE"
+echo "  \"network\": {" >> "\$OUTPUT_FILE"
+echo "    \"interface\": \"$AP_INTERFACE\"," >> "\$OUTPUT_FILE"
+echo "    \"rx_packets\": \$RX_PACKETS," >> "\$OUTPUT_FILE"
+echo "    \"tx_packets\": \$TX_PACKETS," >> "\$OUTPUT_FILE"
+echo "    \"connected_clients\": \$CONNECTED_CLIENTS," >> "\$OUTPUT_FILE"
+echo "    \"capture_running\": \$CAPTURE_RUNNING" >> "\$OUTPUT_FILE"
+echo "  }" >> "\$OUTPUT_FILE"
+echo "}" >> "\$OUTPUT_FILE"
+
+# In Datenbank speichern
+if [ -f "\$DB_FILE" ]; then
+  sqlite3 "\$DB_FILE" "INSERT INTO system_status (timestamp, cpu_percent, memory_percent, disk_percent, temperature, uptime_seconds, active_connections, capture_running) 
+                       VALUES (datetime('now'), \$CPU_USAGE, \$MEM_PERCENT, \$DISK_PERCENT, \$CPU_TEMP, \$UPTIME_SEC, \$CONNECTED_CLIENTS, \$CAPTURE_RUNNING);"
+fi
+
+# Komprimieren, wenn aktiviert
+if [ "$COMPRESSION_ENABLED" = "true" ]; then
+  gzip "\$OUTPUT_FILE"
+fi
+
+echo "Systemstatistiken in \$OUTPUT_FILE gespeichert"
+EOF
+  chmod +x "$DATA_DIR/collect_stats.sh"
+  
+  log_message "INFO" "Datenerfassung konfiguriert"
+}
+
+# Funktion zur Konfiguration der Datenübertragung an externe Systeme
+configure_data_transfer() {
+  log_message "INFO" "Konfiguriere Datenübertragung"
+  
+  if [ "$REMOTE_SYNC_ENABLED" = "true" ]; then
+    # SSH-Key erstellen, falls noch nicht vorhanden
+    if [ ! -f "$REMOTE_SYNC_KEYFILE" ]; then
+      log_message "INFO" "Erstelle SSH-Key für Datenübertragung"
+      ssh-keygen -t ed25519 -f "$REMOTE_SYNC_KEYFILE" -N "" -C "netcapture-transfer-key"
+      log_message "WARN" "Bitte kopieren Sie den öffentlichen Schlüssel zum Remote-Server:"
+      cat "${REMOTE_SYNC_KEYFILE}.pub"
+    fi
+    
+    # Skript zur Datenübertragung erstellen
+    cat > "$DATA_DIR/sync_data.sh" << EOF
+#!/bin/bash
+
+# Variablen
+REMOTE_USER="$REMOTE_SYNC_USER"
+REMOTE_HOST="$REMOTE_SYNC_HOST"
+REMOTE_DIR="$REMOTE_SYNC_DIR"
+LOCAL_DATA_DIR="$DATA_DIR"
+SSH_KEY="$REMOTE_SYNC_KEYFILE"
+TRANSFER_DIR="$TRANSFER_DIR"
+LOG_FILE="$LOGS_DIR/transfer.log"
+
+# Zeitstempel für Log
+TIMESTAMP=\$(date "+%Y-%m-%d %H:%M:%S")
+
+# Sicherstellen, dass das Transfer-Verzeichnis existiert
+mkdir -p "\$TRANSFER_DIR/pcaps"
+mkdir -p "\$TRANSFER_DIR/stats"
+mkdir -p "\$TRANSFER_DIR/logs"
+
+# Funktion zum Loggen von Nachrichten
+log_transfer() {
+  echo "[\$TIMESTAMP] \$1" >> "\$LOG_FILE"
+}
+
+log_transfer "Starte Datenübertragung"
+
+# Kopiere neue PCAP-Dateien ins Transfer-Verzeichnis
+find "$PCAP_DIR" -type f -mmin -30 -not -path "*/\.*" | while read file; do
+  filename=\$(basename "\$file")
+  if [ ! -f "\$TRANSFER_DIR/pcaps/\$filename" ]; then
+    cp "\$file" "\$TRANSFER_DIR/pcaps/"
+    log_transfer "Kopiere \$filename ins Transfer-Verzeichnis"
+  fi
+done
+
+# Kopiere Statistikdaten ins Transfer-Verzeichnis
+find "$STATS_DIR" -type f -mmin -30 -not -path "*/\.*" | while read file; do
+  filename=\$(basename "\$file")
+  if [ ! -f "\$TRANSFER_DIR/stats/\$filename" ]; then
+    cp "\$file" "\$TRANSFER_DIR/stats/"
+    log_transfer "Kopiere \$filename ins Transfer-Verzeichnis"
+  fi
+done
+
+# Kopiere Logs ins Transfer-Verzeichnis
+find "$LOGS_DIR" -type f -mmin -30 -not -path "*/\.*" | while read file; do
+  filename=\$(basename "\$file")
+  if [ ! -f "\$TRANSFER_DIR/logs/\$filename" ]; then
+    cp "\$file" "\$TRANSFER_DIR/logs/"
+    log_transfer "Kopiere \$filename ins Transfer-Verzeichnis"
+  fi
+done
+
+# Kopiere Datenbank ins Transfer-Verzeichnis
+if [ -f "$DATA_DIR/capture.db" ]; then
+  sqlite3 "$DATA_DIR/capture.db" ".backup '$TRANSFER_DIR/capture_\$(date +%Y%m%d_%H%M%S).db'"
+  log_transfer "Backup der Datenbank erstellt"
+fi
+
+# Übertrage Daten per rsync
+log_transfer "Starte rsync zum Remote-Server \$REMOTE_HOST"
+rsync -avz -e "ssh -i \$SSH_KEY -o StrictHostKeyChecking=no" \
+  "\$TRANSFER_DIR/" \
+  "\$REMOTE_USER@\$REMOTE_HOST:\$REMOTE_DIR/" \
+  >> "\$LOG_FILE" 2>&1
+
+# Prüfe, ob die Übertragung erfolgreich war
+if [ \$? -eq 0 ]; then
+  log_transfer "Übertragung erfolgreich"
+  
+  # Nach erfolgreicher Übertragung Dateien im Transfer-Verzeichnis löschen
+  find "\$TRANSFER_DIR" -type f -mmin +60 -exec rm {} \;
+  log_transfer "Alte Dateien im Transfer-Verzeichnis gelöscht"
+else
+  log_transfer "FEHLER: Übertragung fehlgeschlagen"
+fi
+
+# Überwache Festplattennutzung und bereinige alte Dateien bei Bedarf
+DISK_USAGE=\$(df -h / | awk '/\// {print \$(NF-1)}' | sed 's/%//')
+if [ \$DISK_USAGE -gt $MAX_STORAGE_PERCENT ]; then
+  log_transfer "WARNUNG: Festplattennutzung \$DISK_USAGE% übersteigt Schwellenwert $MAX_STORAGE_PERCENT%"
+  
+  # Entferne alte PCAP-Dateien
+  find "$PCAP_DIR" -type f -mtime +1 -name "*.pcap" | sort | head -n 50 | xargs rm -f
+  log_transfer "Alte PCAP-Dateien wurden gelöscht"
+  
+  # Entferne alte Statistikdateien
+  find "$STATS_DIR" -type f -mtime +7 | xargs rm -f
+  log_transfer "Alte Statistikdateien wurden gelöscht"
+fi
+
+log_transfer "Datenübertragung abgeschlossen"
+EOF
+    chmod +x "$DATA_DIR/sync_data.sh"
+    
+    log_message "INFO" "Datenübertragungsskript erstellt"
+  else
+    log_message "INFO" "Remote-Synchronisierung ist deaktiviert"
+  fi
+}
+
+# Funktion zur Konfiguration des Watchdog-Systems
+configure_watchdog() {
+  log_message "INFO" "Konfiguriere Watchdog-System"
+  
+  # Hardware-Watchdog aktivieren, falls verfügbar
+  if [ -c "/dev/watchdog" ]; then
+    cat > "/etc/watchdog.conf" << EOF
+# Watchdog device
+watchdog-device = /dev/watchdog
+# Intervall in Sekunden
+interval = 10
+# Test-Dateien
+file = /var/run/hostapd.pid
+file = /var/run/dnsmasq.pid
+# Systemauslastung überwachen
+max-load-1 = 24
+# Temperatur überwachen (nur Raspberry Pi)
+temperature-device = /sys/class/thermal/thermal_zone0/temp
+max-temperature = 85000
+# Reparaturaktionen
+repair-binary = /usr/local/bin/repair_network.sh
+repair-timeout = 60
+EOF
+    
+    # Reparaturskript erstellen
+    cat > "/usr/local/bin/repair_network.sh" << EOF
+#!/bin/bash
+
+LOG_FILE="$LOGS_DIR/watchdog.log"
+TIMESTAMP=\$(date "+%Y-%m-%d %H:%M:%S")
+
+echo "[\$TIMESTAMP] Watchdog hat ein Problem erkannt, versuche Reparatur" >> "\$LOG_FILE"
+
+# Überprüfen und neu starten von hostapd
+if ! systemctl is-active --quiet hostapd; then
+  echo "[\$TIMESTAMP] hostapd ist nicht aktiv, starte neu" >> "\$LOG_FILE"
+  systemctl restart hostapd
+fi
+
+# Überprüfen und neu starten von dnsmasq
+if ! systemctl is-active --quiet dnsmasq; then
+  echo "[\$TIMESTAMP] dnsmasq ist nicht aktiv, starte neu" >> "\$LOG_FILE"
+  systemctl restart dnsmasq
+fi
+
+# Überprüfen der Netzwerkschnittstellen
+if ! ip link show $AP_INTERFACE | grep -q "UP"; then
+  echo "[\$TIMESTAMP] $AP_INTERFACE ist down, aktiviere" >> "\$LOG_FILE"
+  ip link set $AP_INTERFACE up
+fi
+
+if ! ip link show $INTERNET_INTERFACE | grep -q "UP"; then
+  echo "[\$TIMESTAMP] $INTERNET_INTERFACE ist down, aktiviere" >> "\$LOG_FILE"
+  ip link set $INTERNET_INTERFACE up
+fi
+
+# Überprüfen und neu starten der Datenerfassung
+if [ -f "/tmp/netcapture/tcpdump.pid" ]; then
+  if ! kill -0 \$(cat "/tmp/netcapture/tcpdump.pid") 2>/dev/null; then
+    echo "[\$TIMESTAMP] Datenerfassung ist gestoppt, starte neu" >> "\$LOG_FILE"
+    $DATA_DIR/stop_capture.sh
+    $DATA_DIR/start_capture.sh
+  fi
+else
+  echo "[\$TIMESTAMP] Keine laufende Datenerfassung gefunden, starte" >> "\$LOG_FILE"
+  $DATA_DIR/start_capture.sh
+fi
+
+# Führe eine schnelle Systemdiagnose durch
+echo "[\$TIMESTAMP] Systemdiagnose:" >> "\$LOG_FILE"
+echo "--------------------------------------" >> "\$LOG_FILE"
+echo "CPU-Auslastung:" >> "\$LOG_FILE"
+top -bn1 | head -n 5 >> "\$LOG_FILE"
+echo "--------------------------------------" >> "\$LOG_FILE"
+echo "Speichernutzung:" >> "\$LOG_FILE"
+free -h >> "\$LOG_FILE"
+echo "--------------------------------------" >> "\$LOG_FILE"
+echo "Festplattennutzung:" >> "\$LOG_FILE"
+df -h / >> "\$LOG_FILE"
+echo "--------------------------------------" >> "\$LOG_FILE"
+echo "Netzwerkschnittstellen:" >> "\$LOG_FILE"
+ip -br addr >> "\$LOG_FILE"
+echo "--------------------------------------" >> "\$LOG_FILE"
+echo "Aktive Verbindungen:" >> "\$LOG_FILE"
+ss -tuln >> "\$LOG_FILE"
+echo "--------------------------------------" >> "\$LOG_FILE"
+
+echo "[\$TIMESTAMP] Reparaturvorgang abgeschlossen" >> "\$LOG_FILE"
+EOF
+    chmod +x "/usr/local/bin/repair_network.sh"
+    
+    # Watchdog-Dienst aktivieren
+    systemctl enable watchdog
+    systemctl start watchdog
+    
+    log_message "INFO" "Hardware-Watchdog konfiguriert"
+  fi
+  
+  # Software-Watchdog-Skript erstellen
+  cat > "$DATA_DIR/software_watchdog.sh" << EOF
+#!/bin/bash
+
+LOG_FILE="$LOGS_DIR/software_watchdog.log"
+TIMESTAMP=\$(date "+%Y-%m-%d %H:%M:%S")
+
+echo "[\$TIMESTAMP] Software-Watchdog Überprüfung" >> "\$LOG_FILE"
+
+# Überprüfen des Gesamtsystems
+# 1. Prüfe hostapd
+if ! systemctl is-active --quiet hostapd; then
+  echo "[\$TIMESTAMP] WARNUNG: hostapd ist nicht aktiv, starte neu" >> "\$LOG_FILE"
+  systemctl restart hostapd
+fi
+
+# 2. Prüfe dnsmasq
+if ! systemctl is-active --quiet dnsmasq; then
+  echo "[\$TIMESTAMP] WARNUNG: dnsmasq ist nicht aktiv, starte neu" >> "\$LOG_FILE"
+  systemctl restart dnsmasq
+fi
+
+# 3. Prüfe Netzwerkschnittstellen
+if ! ip link show $AP_INTERFACE | grep -q "UP"; then
+  echo "[\$TIMESTAMP] WARNUNG: $AP_INTERFACE ist down, aktiviere" >> "\$LOG_FILE"
+  ip link set $AP_INTERFACE up
+fi
+
+# 4. Prüfe Internet-Konnektivität
+if ! ping -c 1 -W 5 1.1.1.1 >/dev/null 2>&1; then
+  echo "[\$TIMESTAMP] WARNUNG: Keine Internet-Verbindung verfügbar" >> "\$LOG_FILE"
+  
+  # Versuche, die Verbindung wiederherzustellen
+  if ip link show $INTERNET_INTERFACE | grep -q "UP"; then
+    echo "[\$TIMESTAMP] $INTERNET_INTERFACE ist up, versuche Neustart" >> "\$LOG_FILE"
+    ip link set $INTERNET_INTERFACE down
+    sleep 2
+    ip link set $INTERNET_INTERFACE up
+  else
+    echo "[\$TIMESTAMP] $INTERNET_INTERFACE ist down, aktiviere" >> "\$LOG_FILE"
+    ip link set $INTERNET_INTERFACE up
+  fi
+fi
+
+# 5. Prüfe Datenerfassung
+if [ -f "/tmp/netcapture/tcpdump.pid" ]; then
+  if ! kill -0 \$(cat "/tmp/netcapture/tcpdump.pid") 2>/dev/null; then
+    echo "[\$TIMESTAMP] WARNUNG: Datenerfassung ist gestoppt, starte neu" >> "\$LOG_FILE"
+    $DATA_DIR/stop_capture.sh
+    $DATA_DIR/start_capture.sh
+  fi
+else
+  echo "[\$TIMESTAMP] INFO: Keine laufende Datenerfassung gefunden, starte" >> "\$LOG_FILE"
+  $DATA_DIR/start_capture.sh
+fi
+
+# 6. Prüfe Festplattennutzung
+DISK_USAGE=\$(df -h / | awk '/\// {print \$(NF-1)}' | sed 's/%//')
+if [ \$DISK_USAGE -gt $MAX_STORAGE_PERCENT ]; then
+  echo "[\$TIMESTAMP] WARNUNG: Festplattennutzung \$DISK_USAGE% übersteigt Schwellenwert $MAX_STORAGE_PERCENT%" >> "\$LOG_FILE"
+  
+  # Entferne alte PCAP-Dateien
+  find "$PCAP_DIR" -type f -mtime +1 -name "*.pcap" | sort | head -n 20 | xargs rm -f
+  echo "[\$TIMESTAMP] Alte PCAP-Dateien wurden gelöscht" >> "\$LOG_FILE"
+fi
+
+# 7. Prüfe CPU-Temperatur
+if [ -f "/sys/class/thermal/thermal_zone0/temp" ]; then
+  CPU_TEMP=\$(awk '{printf "%.1f", \$1/1000}' /sys/class/thermal/thermal_zone0/temp)
+  if (( \$(echo "\$CPU_TEMP > 80" | bc -l) )); then
+    echo "[\$TIMESTAMP] WARNUNG: CPU-Temperatur \$CPU_TEMP°C ist zu hoch!" >> "\$LOG_FILE"
+    # Reduziere Last, falls möglich
+    nice -n 19 $DATA_DIR/stop_capture.sh
+    sleep 10
+    nice -n 19 $DATA_DIR/start_capture.sh
+  fi
+fi
+
+echo "[\$TIMESTAMP] Software-Watchdog Überprüfung abgeschlossen" >> "\$LOG_FILE"
+EOF
+  chmod +x "$DATA_DIR/software_watchdog.sh"
+  
+  log_message "INFO" "Software-Watchdog konfiguriert"
+}
+
+# Funktion zur Erstellung des System-Startskripts
+create_init_scripts() {
+  log_message "INFO" "Erstelle Systeminitialisierungs-Skripts"
+  
+  # Hauptstartskript
+  cat > "/usr/local/bin/netcapture_start.sh" << EOF
+#!/bin/bash
+
+# Pfad zur Datenerfassung
+DATA_DIR="$DATA_DIR"
+LOGS_DIR="$LOGS_DIR"
+
+# Zeitstempel
+TIMESTAMP=\$(date "+%Y-%m-%d %H:%M:%S")
+
+# Log-Funktion
+log_startup() {
+  echo "[\$TIMESTAMP] \$1" >> "\$LOGS_DIR/startup.log"
+}
+
+# Sicherstellen, dass die Verzeichnisse existieren
+mkdir -p "\$LOGS_DIR"
+
+log_startup "System-Startup gestartet"
+
+# Systemdienste starten
+log_startup "Starte hostapd"
+systemctl start hostapd
+
+log_startup "Starte dnsmasq"
+systemctl start dnsmasq
+
+# IP-Forwarding aktivieren
+log_startup "Aktiviere IP-Forwarding"
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Firewall-Regeln laden
+log_startup "Lade iptables-Regeln"
+if [ -f "/etc/iptables/rules.v4" ]; then
+  iptables-restore < /etc/iptables/rules.v4
+  log_startup "iptables-Regeln geladen"
+else
+  log_startup "FEHLER: iptables-Regeln nicht gefunden"
+fi
+
+# Warte kurz, bis die Netzwerkdienste bereit sind
+sleep 5
+
+# Starte Datenerfassung
+log_startup "Starte Datenerfassung"
+\$DATA_DIR/start_capture.sh
+
+# Starte initiale Datensammlung
+log_startup "Sammle initiale Systemdaten"
+\$DATA_DIR/collect_stats.sh
+
+log_startup "System-Startup abgeschlossen"
+EOF
+  chmod +x "/usr/local/bin/netcapture_start.sh"
+  
+  # systemd-Dienst für die Datenerfassung erstellen
+  cat > "/etc/systemd/system/netcapture.service" << EOF
+[Unit]
+Description=Network Capture and Analysis Service
+After=network.target hostapd.service dnsmasq.service
+Wants=hostapd.service dnsmasq.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/netcapture_start.sh
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+EOF
+  
+  # Cron-Jobs für regelmäßige Aufgaben einrichten
+  cat > "/etc/cron.d/netcapture" << EOF
+# Cron-Jobs für Netzwerkdatenerfassung
+
+# Sammle Client-Daten alle 5 Minuten
+*/5 * * * * root $DATA_DIR/collect_clients.sh > /dev/null 2>&1
+
+# Sammle Systemstatistiken alle 5 Minuten
+*/5 * * * * root $DATA_DIR/collect_stats.sh > /dev/null 2>&1
+
+# Führe Software-Watchdog alle 2 Minuten aus
+*/2 * * * * root $DATA_DIR/software_watchdog.sh > /dev/null 2>&1
+
+# Synchronisiere Daten alle 30 Minuten
+*/30 * * * * root $DATA_DIR/sync_data.sh > /dev/null 2>&1
+
+# Starte die Datenerfassung neu (falls nötig) jeden Tag um 4 Uhr morgens
+0 4 * * * root $DATA_DIR/stop_capture.sh && sleep 10 && $DATA_DIR/start_capture.sh > /dev/null 2>&1
+
+# Bereinige alte Log-Dateien einmal pro Woche
+0 3 * * 0 root find $LOGS_DIR -type f -mtime +7 -delete > /dev/null 2>&1
+EOF
+  
+  # Dienst aktivieren
+  systemctl daemon-reload
+  systemctl enable netcapture.service
+  
+  log_message "INFO" "Systeminitialisierungs-Skripts erstellt"
+}
+
+# Funktion zum Erstellen des README und der Dokumentation
+create_documentation() {
+  log_message "INFO" "Erstelle Dokumentation"
+  
+  cat > "$DATA_DIR/README.md" << EOF
+# Netzwerkdatenerfassung für IT-Sicherheitsforschung
+
+Dieses System konfiguriert einen Raspberry Pi 4B als Access Point zur Datenerfassung 
+für Forschungszwecke im Bereich IT-Sicherheit.
+
+## Systemüberblick
+
+- **Hostname:** $(hostname)
+- **Betriebssystem:** $(lsb_release -ds)
+- **Kernel:** $(uname -r)
+- **Installationsdatum:** $(date -I)
+
+## Zugriffsdaten
+
+Die Access Point-Zugangsdaten finden Sie in der Datei:
+\`$DATA_DIR/access_credentials.txt\`
+
+## Verzeichnisstruktur
+
+- **$DATA_DIR/:** Hauptverzeichnis für Datenerfassung
+- **$LOGS_DIR/:** Systemlogs und Erfassungslogs
+- **$PCAP_DIR/:** Gespeicherte PCAP-Dateien
+- **$STATS_DIR/:** Systemstatistiken und Client-Informationen
+- **$TRANSFER_DIR/:** Temporäres Verzeichnis für Datenübertragung
+
+## Hauptskripte
+
+- **start_capture.sh:** Startet die Netzwerkdatenerfassung
+- **stop_capture.sh:** Stoppt die laufende Erfassung
+- **collect_clients.sh:** Sammelt Informationen über verbundene Clients
+- **collect_stats.sh:** Sammelt Systemstatistiken
+- **sync_data.sh:** Überträgt Daten zu einem externen System
+
+## Konfiguration
+
+Die Systemkonfiguration befindet sich in \`$CONFIG_FILE\`. 
+Diese Datei enthält alle wichtigen Parameter wie Netzwerkschnittstellen,
+WLAN-Konfiguration und Datenerfassungseinstellungen.
+
+## Datenanalyse
+
+Die erfassten Daten werden im PCAP-Format gespeichert und können mit
+gängigen Tools wie Wireshark, tshark oder Scapy analysiert werden.
+Zusätzlich werden Metadaten in JSON-Format und in einer SQLite-Datenbank
+gespeichert.
+
+## Wartung
+
+### Dienste neu starten
+
+\`\`\`bash
+systemctl restart netcapture
+systemctl restart hostapd
+systemctl restart dnsmasq
+\`\`\`
+
+### Datenerfassung manuell steuern
+
+\`\`\`bash
+$DATA_DIR/start_capture.sh  # Datenerfassung starten
+$DATA_DIR/stop_capture.sh   # Datenerfassung stoppen
+\`\`\`
+
+### Systemdienste prüfen
+
+\`\`\`bash
+systemctl status netcapture
+systemctl status hostapd
+systemctl status dnsmasq
+\`\`\`
+
+## Fehlerbehebung
+
+Bei Problemen prüfen Sie bitte die Log-Dateien:
+
+\`\`\`bash
+cat $LOGS_DIR/system.log       # Hauptsystemlog
+cat $LOGS_DIR/watchdog.log     # Watchdog-Logs
+cat $LOGS_DIR/transfer.log     # Datenübertragungslogs
+\`\`\`
+
+Das Software-Watchdog-System überwacht das System automatisch und versucht,
+Probleme zu beheben.
+EOF
+  
+  log_message "INFO" "Dokumentation erstellt"
+}
+
+# Hauptfunktion
+main() {
+  log_message "INFO" "=== Starte Raspberry Pi Netzwerkdatenerfassung Installation ==="
+  
+  # Überprüfen, ob das Skript als Root ausgeführt wird
+  if [ "$EUID" -ne 0 ]; then
+    log_message "ERROR" "Dieses Skript muss als Root ausgeführt werden (sudo ./setup.sh)"
+    exit 1
+  fi
+  
+  # Prüfe, ob es sich um einen Raspberry Pi handelt
+  if ! grep -q "Raspberry Pi" /proc/device-tree/model 2>/dev/null; then
+    log_message "WARN" "Dieses Skript ist für Raspberry Pi optimiert. Fortfahren auf eigene Gefahr."
+    read -p "Möchten Sie fortfahren? (j/n) " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Jj]$ ]]; then
+      log_message "INFO" "Installation abgebrochen."
+      exit 0
+    fi
+  fi
+  
+  # Führe die Konfigurationsschritte durch
+  setup_directories
+  install_dependencies
+  setup_configuration
+  configure_access_point
+  configure_networking
+  configure_data_capture
+  configure_data_transfer
+  configure_watchdog
+  create_init_scripts
+  create_documentation
+  
+  log_message "INFO" "Installation abgeschlossen"
+  log_message "INFO" "Bitte starten Sie den Raspberry Pi neu, um alle Änderungen zu aktivieren:"
+  log_message "INFO" "sudo reboot"
+  
+  # Ausgabe der Zugangsdaten
+  if [ -f "$DATA_DIR/access_credentials.txt" ]; then
+    echo ""
+    echo "=========================================================="
+    echo "Access Point Zugangsdaten:"
+    echo "=========================================================="
+    cat "$DATA_DIR/access_credentials.txt"
+    echo "=========================================================="
+  fi
+}
+
+# Starte Hauptfunktion
+main

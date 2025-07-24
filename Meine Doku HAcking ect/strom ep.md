@@ -1,0 +1,1 @@
+0242148650 leitungs patner gmbh 

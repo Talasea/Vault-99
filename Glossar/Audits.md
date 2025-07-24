@@ -1,0 +1,9 @@
+Ein Audit ist eine systematische und unabhängige Untersuchung oder Bewertung von Informationen, Prozessen, Systemen, Kontrollen oder Organisationen. Ziel ist es, sicherzustellen, dass diese den festgelegten Standards, Richtlinien oder Anforderungen entsprechen. Audits werden normalerweise von qualifizierten Fachleuten oder unabhängigen Prüfern durchgeführt, um die Genauigkeit, Integrität, Wirksamkeit, Effizienz und Compliance zu bewerten. Die Ergebnisse werden in einem Prüfungsbericht festgehalten, der die Feststellungen, Empfehlungen und Maßnahmen zur Behebung von identifizierten Problemen oder Schwachstellen enthält.
+
+Es gibt verschiedene Arten von Audits:
+
+- **Interne Audits (1st Party)**: Diese werden von Mitarbeitern der Organisation durchgeführt, in der das Audit durchgeführt wird. Sie helfen, Probleme oder Verbesserungspotenziale zu identifizieren.
+- **Lieferantenaudits (2nd Party)**: Diese werden üblicherweise von dem Managementbeauftragten eines Kunden bei seinem Lieferanten durchgeführt. Sie prüfen, ob der Lieferant den Anforderungen entspricht.
+- **Zertifizierungsaudits (3rd Party)**: Diese werden von unabhängigen Prüfern einer Zertifizierungsstelle durchgeführt, wie z.B. DEKRA, DQS oder TÜV. Sie überprüfen, ob die Organisation die Anforderungen einer bestimmten Zertifizierung erfüllt.
+
+Audits dienen dazu, die Qualität von Geschäftsprozessen zu prüfen und zu zeigen, dass bestimmte Industriestandards, Qualitätsniveaus und gesetzliche Verpflichtungen eingehalten werden. Sie tragen zur Transparenz, Vertrauensbildung und Verbesserung von Prozessen und Systemen in Organisationen bei.

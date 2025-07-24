@@ -1,0 +1,3 @@
+IP-Spoofing bezieht sich auf die Verwendung einer gefälschten IP-Adresse durch den Absender, um entweder ihre tatsächliche Identität zu verschleiern oder Cyber-Angriffe auszuführen.  
+Die Angreifer ändern die IP-Adressinformationen eines über das Internet versendeten Datenpakets und erwecken so den Anschein, dass die Daten von einer anderen (vertrauten) Adresse ausgehen. Hierbei bleibt die eigentliche IP-Adresse verborgen und kann nicht zurückverfolgt werden.  
+Ziel von Spoofing besteht meist darin, an sensible und persönliche Informationen zu gelangen bzw sie zu stehlen.

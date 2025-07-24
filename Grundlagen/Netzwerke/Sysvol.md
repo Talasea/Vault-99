@@ -1,0 +1,8 @@
+
+Der **SYSVOL-Ordner** ist ein spezielles Verzeichnis, das sich auf jedem Domänencontroller (DC) in einer Active Directory-Domäne befindet. Er dient dazu, wichtige Dateien und Ordner zu speichern, auf die Clients zugreifen und die zwischen den Domänencontrollern synchronisiert werden müssen. Der Standardpfad für den SYSVOL-Ordner ist `C:\Windows\SYSVOL`.
+
+Der SYSVOL-Ordner enthält unter anderem Gruppenrichtlinienobjekte (GPOs) und Anmeldeskripte, die für alle Benutzer und Computer in der Domäne relevant sind. Diese Elemente werden von den Clients benötigt, um ordnungsgemäß auf die Ressourcen in der Domäne zugreifen zu können.
+
+Die Replikation des SYSVOL-Ordners erfolgt durch den Dateireplikationsdienst (File Replication Service, FRS) oder, in neueren Versionen, durch das Distributed File System Replication (DFSR). Beide Technologien sorgen dafür, dass der Inhalt des SYSVOL-Ordners auf allen Domänencontrollern in der Domäne identisch ist und schnell und zuverlässig repliziert wird.
+
+Es ist wichtig, dass die SYSVOL-Replikation regelmäßig überwacht und gepflegt wird, um sicherzustellen, dass keine Sicherheitslücken entstehen. Insbesondere die Verwendung des veralteten FRS-Protokolls kann Risiken aufweisen, da es nicht mehr aktiv unterstützt wird. Bei älteren Systemen, die noch FRS verwenden, wird empfohlen, zur DFSR zu migrieren, um die Sicherheit und Effizienz der Replikation zu verbessern.
