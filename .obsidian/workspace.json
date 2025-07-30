@@ -92,9 +92,77 @@
               "icon": "lucide-file",
               "title": "MSF - Metasploit Framework"
             }
+          },
+          {
+            "id": "6251d96c8a8b4e4d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Meine Doku HAcking ect/HP/matrix-template-guide.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "matrix-template-guide"
+            }
+          },
+          {
+            "id": "c3ca4a8a2d565a78",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Modul1 Glossa überprüfen.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Modul1 Glossa überprüfen"
+            }
+          },
+          {
+            "id": "ce9989606ae5ac51",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Modul1 zusammen fassung esentials.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Modul1 zusammen fassung esentials"
+            }
+          },
+          {
+            "id": "fd460e648efcb56d",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Umschlung/Modul 2/Mitschrift 03.02.25.excalidraw"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Mitschrift 03.02.25"
+            }
+          },
+          {
+            "id": "139f7793accbc99e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Glossar/5-4-3-Regel.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "5-4-3-Regel"
+            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 9
       }
     ],
     "direction": "vertical"
@@ -126,7 +194,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "topolo",
+                "query": "path:\"Glossar/\" ",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -281,50 +349,50 @@
       "remotely-secure:Remotely Sync": false
     }
   },
-  "active": "23c254859ac750c9",
+  "active": "f17f3ee7110e5641",
   "lastOpenFiles": [
-    "Textdokument (neu).txt",
-    "Aufgaben/Aufgaben 17.07.2025.md",
-    "jobplattformen-vergleich.md",
-    "Umschlung/Modul 3/MSF - Metasploit Framework.md",
-    "vorlage für indeed zb.md",
-    "Meine Doku HAcking ect/HP/schildwall 2.0.md",
-    "Grundlagen/SQL Befehle.md",
-    "Meine Doku HAcking ect/HP/hompage und apps.md",
-    "Meine Doku HAcking ect/HP/matrix-template-guide.md",
-    "Meine Doku HAcking ect/HP",
-    "Umschlung/1-Template Einwilligungserklaerung Schulungsteilnehmer.pdf",
-    "Umschlung/Modul 3/78_Datenbankzugriffe.pdf",
-    "Umschlung/Untitled.md",
-    "Umschlung/Modul 1/2-19_ISO_OSI-Modell.pdf",
-    "Umschlung/Modul 1/überarbieten/it-fachbegriffe-komplett.md.md",
-    "Umschlung/Modul 1/überarbieten/Modul Eins – Kompaktwissen IT-Infrastruktur & Security.md",
-    "Umschlung/Modul 1/überarbieten",
-    "Umschlung/Modul 1/01_Netzwerksicherheit Authentifizierung.pdf",
-    "Umschlung/Modul 1/[12.12.2024 Speichertechnologien und ihre Schnelligkeit.pdf.md",
-    "Umschlung/Modul 1/modul-eins-Esenntials.md",
-    "Umschlung/Modul 1/Nicht bestätigt 471648.crdownload",
-    "Umschlung/Modul 1/it-fachbegriffeModul1.md",
-    "Umschlung/Modul 1/Nicht bestätigt 450765.crdownload",
-    "Medien/Hausaufgabe vom 19.02.2025.pdf",
-    "Umschlung/Mitschrift 03.02.25.excalidraw",
+    "Modul1 zusammen fassung esentials.md",
+    "Glosar zusammenfassung.md",
+    "Glossar fehlend.md",
+    "GlossarModul2.md",
+    "modul 2 zusammenfassung.md",
+    "Umschlung/Modul 1/WireShark/Mitschrift 15.01.25.md",
+    "Glossar/AAAA-Record.md",
+    "Glossar/Begriff A-Record.md",
+    "Glossar/Begriff 802.3afPoE.md",
+    "Glossar/5-4-3-Regel.md",
+    "PromtFürObsidian/Promt.md",
+    "PromtFürObsidian/Begriff mardown.md",
+    "Glossar/BAypass.md",
+    "PromtFürObsidian",
+    "Glossar/Awarness.md",
+    "Glossar/Audits.md",
+    "Glossar/Assets.md",
+    "Glossar/ABAC.md",
+    "Glossar/3Wege Handshake.md",
+    "Modul1 Glossa überprüfen.md",
+    "Umschlung/Modul 1/Mitschrift 21.01.25.md",
+    "Umschlung/Modul 1/Tag 29 - Rollen und Rechteverwaltung.pdf",
+    "Umschlung/Modul 1/3-16_Uebertragungstechnik.pdf",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/Funkfeldmesseung.md",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/Domain Namen.md",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/DNS Erklärt.md",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/Cat Kabel.md",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/14_Datenspeicher.pdf",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/4-18_Sendearten.pdf",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/3-16_Uebertragungstechnik.pdf",
+    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/2-21_Netzwerktechnik und Komponenten.pdf",
+    "Umschlung/Modul 1/CIA Triade/Datenschutz -Grundverordnung.md",
+    "Umschlung/Modul 1/CIA Triade/11_Massnahmen der Informationssicherheit (1).pdf",
+    "Umschlung/Modul 1/CIA Triade/10_Schutzziele der Informationssicherheit (1).pdf",
+    "Umschlung/Modul 1/CIA Triade/09_Informationssicherheit vs. IT-Sicherheit (1).pdf",
+    "Umschlung/Berufe in der IT icherheit und Qualifizierung/OSCP Zertifizirung.md",
     "Medien/Pasted image 20250717165055.png",
     "Medien/c76041581592a61eab45a759994bbe48_MD5 1.jpeg",
     "Medien/3036b35363479263ddf39c9c09e2bd66_MD5 1.jpeg",
     "Medien/8d3d43ba615fb5e658fadf722bfd1658_MD5 1.jpeg",
     "Medien/Pasted image 20250721144559.png",
     "Medien/Pasted image 20250721144446.png",
-    "Aufgaben/Aufgaben 17.07.25chris daniel.md",
-    "Umschlung/Telefonliste.md",
-    "Mitschrift01.04.25.excalidraw.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-02.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-03.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-04.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-07.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-08.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-14.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-15.md",
-    "Tagesnotizen/Modul 2/Linux und recht/2025-04-16.md",
     "Medien/Pasted Image 20250716154519_127.png",
     "Medien/Pasted Image 20250716154519_115.png",
     "Medien/Pasted Image 20250716154519_100.png",
