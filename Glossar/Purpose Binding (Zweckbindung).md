@@ -1,0 +1,17 @@
+- **Kerndefinition:** **Purpose Binding** (Grundsatz der Zweckbindung) ist ein zentrales Prinzip des Datenschutzrechts, insbesondere der EU-Datenschutz-Grundverordnung (DSGVO). Es besagt, dass personenbezogene Daten nur für festgelegte, eindeutige und legitime Zwecke erhoben werden dürfen und nicht in einer mit diesen Zwecken nicht zu vereinbarenden Weise weiterverarbeitet werden dürfen.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Prozess:** Bevor ein Unternehmen personenbezogene Daten erhebt, muss es klar definieren, _wofür_ diese Daten benötigt werden (z. B. "zur Abwicklung einer Bestellung und zum Versand der Ware"). Dieser Zweck muss den betroffenen Personen transparent mitgeteilt werden (Informationspflicht).
+        
+    - **Verbot der Zweckentfremdung:** Dieselben Daten dürfen später nicht ohne Weiteres für einen völlig anderen Zweck verwendet werden (z. B. "um die Bestelldaten für personalisierte Werbe-E-Mails zu nutzen"). Für eine solche Zweckänderung ist in der Regel eine neue Rechtsgrundlage, meist eine explizite Einwilligung der betroffenen Person, erforderlich.
+        
+    - **Ausnahmen:** Eine Weiterverarbeitung für im öffentlichen Interesse liegende Archivzwecke, für wissenschaftliche oder historische Forschungszwecke oder für statistische Zwecke gilt unter bestimmten Voraussetzungen nicht als unvereinbar mit den ursprünglichen Zwecken.
+        
+- **Einordnung in den Gesamtkontext:** Der Grundsatz der Zweckbindung ist in **Artikel 5(1)(b) der DSGVO** verankert und bildet zusammen mit anderen Prinzipien wie **Datenminimierung**, **Richtigkeit** und **Speicherbegrenzung** das Fundament des europäischen Datenschutzrechts. Er soll die "uferlose" Sammlung und Nutzung von Daten verhindern und sicherstellen, dass die betroffenen Personen die Kontrolle über ihre Informationen behalten.
+    
+- **Sicherheitsaspekte:** Die Zweckbindung hat indirekte, aber wichtige Auswirkungen auf die IT-Sicherheit. Indem sie die Nutzung von Daten auf das Notwendige beschränkt, reduziert sie die Angriffsfläche. Daten, die für einen bestimmten Zweck nicht mehr benötigt werden, müssen gelöscht werden (Grundsatz der Speicherbegrenzung), was das Risiko bei einem Datenleck verringert. Die Umsetzung der Zweckbindung erfordert technische Maßnahmen wie eine sorgfältige Datenarchitektur und ein Berechtigungskonzept, das sicherstellt, dass Mitarbeiter nur auf die Daten zugreifen können, die sie für den festgelegten Zweck benötigen.
+    
+- **Praxisbeispiel / Analogie:** Der Grundsatz der Zweckbindung funktioniert wie ein Hausschlüssel, den man einem Handwerker gibt. Man gibt ihm den Schlüssel für den expliziten Zweck, die Heizung zu reparieren. Man erwartet, dass er nur die Räume betritt, die dafür notwendig sind. Man wäre nicht damit einverstanden, wenn er denselben Schlüssel nutzt, um später ohne Erlaubnis im Schlafzimmer private Fotoalben durchzusehen (Zweckentfremdung).
+    
+- **Fazit / Bedeutung für IT-Profis:** Für IT-Architekten, Softwareentwickler und Datenbankadministratoren bedeutet die Zweckbindung, dass Systeme "Privacy by Design" entworfen werden müssen. Es muss von Anfang an technisch sichergestellt werden, dass Datenflüsse klar definiert sind, Zugriffsrechte zweckgebunden vergeben werden und eine unzulässige Weiterverarbeitung verhindert wird. Die Einhaltung der Zweckbindung ist keine rein rechtliche Frage, sondern erfordert eine konsequente technische Umsetzung.

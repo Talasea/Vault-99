@@ -1,0 +1,15 @@
+- **Kerndefinition:** Ein **Hub** ist ein einfaches Netzwerkgerät der ersten Schicht (Bitübertragungsschicht bzw. Physical Layer) des OSI-Modells. Er dient als zentraler Verbindungspunkt in einem sternförmigen Netzwerk und leitet alle an einem Port ankommenden Datenpakete (Frames) unbesehen an alle anderen Ports weiter.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Funktionsweise:** Ein Hub agiert als simpler Signalverstärker und -verteiler. Er besitzt keinerlei Intelligenz, um den Inhalt oder die Zieladresse der Daten zu analysieren. Empfängt er ein elektrisches Signal auf Port 1, regeneriert er dieses und sendet eine exakte Kopie an Port 2, 3, 4 usw.
+        
+    - **Konsequenzen:** Da alle Daten an alle Ports gesendet werden, teilen sich alle am Hub angeschlossenen Geräte eine einzige **Kollisionsdomäne**. Das bedeutet, wenn zwei Geräte gleichzeitig senden, kommt es zu einer Kollision, und die Daten müssen erneut gesendet werden. Dies führt bei steigender Teilnehmerzahl schnell zu einer massiven Reduktion der Netzwerkleistung. Ebenso bilden alle Geräte eine einzige **Broadcast-Domäne**.
+        
+- **Einordnung in den Gesamtkontext:** Der Hub ist der technologisch primitivste und älteste Typ eines Netzwerkverteilers. Er wurde fast vollständig durch den **Switch** abgelöst, der auf Schicht 2 (Sicherungsschicht) arbeitet. Ein Switch lernt, welche MAC-Adresse zu welchem Port gehört, und leitet Datenpakete gezielt nur an den Port des tatsächlichen Empfängers weiter. Dadurch schafft ein Switch für jeden Port eine eigene Kollisionsdomäne und ist weitaus performanter und sicherer als ein Hub.
+    
+- **Sicherheitsaspekte:** Die Funktionsweise eines Hubs stellt ein erhebliches Sicherheitsrisiko dar. Da jeder Frame an jeden Port gesendet wird, kann ein Angreifer ein Gerät an einen freien Port des Hubs anschließen, einen Paket-Sniffer (wie Wireshark) starten und den gesamten Netzwerkverkehr des Segments mühelos mitlesen. Dies ermöglicht das Abfangen von Passwörtern, E-Mails und anderen sensiblen Daten, die unverschlüsselt übertragen werden.
+    
+- **Praxisbeispiel / Analogie:** Ein Hub funktioniert wie ein Marktschreier auf einem kleinen Platz. Alles, was er ruft (ankommende Daten), hören alle Personen auf dem Platz (alle angeschlossenen Geräte), egal ob die Nachricht für sie bestimmt war oder nicht. Wenn zwei Personen gleichzeitig rufen (senden), versteht niemand etwas (Kollision). Ein Switch hingegen wäre wie ein Postbote, der jeden Brief (Datenpaket) liest und ihn nur in den Briefkasten des korrekten Empfängers wirft.
+    
+- **Fazit / Bedeutung für IT-Profis:** Hubs sind heute technologisch obsolet und sollten in produktiven Netzwerken nicht mehr eingesetzt werden. Für IT-Fachleute ist das Wissen über Hubs wichtig, um veraltete Netzwerkarchitekturen zu erkennen, deren Leistungs- und Sicherheitsprobleme zu verstehen und sie fachgerecht durch moderne Switches zu ersetzen. In seltenen Fällen können sie noch zu speziellen Analysezwecken (z. B. zur Demonstration von Netzwerk-Sniffing) verwendet werden.

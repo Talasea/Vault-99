@@ -1,0 +1,15 @@
+- **Kerndefinition:** Die **Von-Neumann-Architektur** ist das grundlegende theoretische Modell, nach dem fast alle heutigen Computer aufgebaut sind. Ihr entscheidendes Merkmal ist, dass sowohl die auszuführenden Programmbefehle als auch die zu verarbeitenden Daten im selben, gemeinsam genutzten Hauptspeicher abgelegt sind.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Komponenten:** Das Modell besteht aus vier Hauptteilen: einem **Rechenwerk** (ALU), das arithmetische und logische Operationen durchführt, einem **Steuerwerk**, das die Befehle interpretiert und den Ablauf steuert, einem **Speicherwerk** (RAM) und **Ein-/Ausgabewerken**.
+        
+    - **Prozess (Fetch-Decode-Execute-Zyklus):** Das Steuerwerk holt einen Befehl aus dem Speicher (Fetch), entschlüsselt ihn (Decode), holt bei Bedarf die zugehörigen Daten aus dem Speicher, lässt die Operation vom Rechenwerk ausführen (Execute) und schreibt das Ergebnis zurück in den Speicher.
+        
+- **Einordnung in den Gesamtkontext:** Dieses Architekturprinzip, das auf den Mathematiker John von Neumann zurückgeht, ist die Grundlage der digitalen Revolution. Es steht im Kontrast zur **Harvard-Architektur**, die getrennte Speicher und Datenbusse für Befehle und Daten verwendet, was in einigen Spezialanwendungen (z. B. Mikrocontrollern) Vorteile bei der Geschwindigkeit bieten kann.
+    
+- **Sicherheitsaspekte:** Die größte Schwachstelle der Von-Neumann-Architektur ist der gemeinsame Speicher für Code und Daten. Dies ist die Wurzel vieler fundamentaler Sicherheitslücken, allen voran der **Pufferüberlauf (Buffer Overflow)**. Ein Angreifer kann dabei durch eine fehlerhafte Eingabe Daten in einen Speicherbereich schreiben, der eigentlich für ausführbaren Code vorgesehen ist. Gelingt es ihm, seinen eigenen Schadcode dort zu platzieren, kann das Steuerwerk diesen im nächsten Zyklus als legitimen Befehl ausführen. Moderne Betriebssysteme nutzen Schutzmechanismen wie **Data Execution Prevention (DEP)**, um dies zu verhindern.
+    
+- **Praxisbeispiel / Analogie:** Stellen Sie sich einen Koch (die CPU) vor, der nur ein einziges Notizbuch (den Speicher) hat. Auf den ersten Seiten steht das Rezept (Programm), und auf den Seiten dahinter notiert er sich die abgewogenen Zutaten (Daten). Wenn er beim Notieren der Zutaten nicht aufpasst und über den vorgesehenen Bereich hinausschreibt, könnte er versehentlich Teile des Rezepts überschreiben und so den gesamten Kochvorgang sabotieren.
+    
+- **Fazit / Bedeutung für IT-Profis:** Ein grundlegendes Verständnis der Von-Neumann-Architektur ist für jeden IT-Profi essenziell. Es erklärt nicht nur, wie Computer im Kern funktionieren, sondern auch, warum bestimmte Klassen von Sicherheitslücken überhaupt existieren und wie moderne Schutzmechanismen auf Hardware- und Betriebssystemebene versuchen, diese architektonische Schwäche zu kompensieren.

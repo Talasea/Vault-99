@@ -1,0 +1,17 @@
+- **Kerndefinition:** Der Begriff **"Notebooks & Excalidraw"** beschreibt die kombinierte Nutzung von interaktiven Programmierumgebungen (Notebooks) und einem kollaborativen Online-Whiteboard (Excalidraw). Diese Kombination dient der Erstellung umfassender technischer Dokumentationen, Analysen und Tutorials, bei denen Code, dessen Ergebnisse, erklärender Text und visuelle Diagramme nahtlos ineinandergreifen.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Notebooks (z. B. Jupyter, Colab):** Dies sind webbasierte, interaktive Umgebungen, die es ermöglichen, Code (z. B. Python) in einzelnen Zellen auszuführen und die Ergebnisse (Text, Tabellen, Diagramme) direkt darunter anzuzeigen. Sie sind ideal, um Datenanalysen, maschinelles Lernen und wissenschaftliche Berechnungen schrittweise und nachvollziehbar zu dokumentieren.
+        
+    - **Excalidraw:** Ein minimalistisches, kollaboratives Whiteboard-Tool, mit dem sich schnell handgezeichnet wirkende Diagramme, Architekturskizzen oder Flowcharts erstellen lassen. Diese Skizzen können als Bild exportiert und direkt in die Markdown-Zellen eines Notebooks eingebettet werden.
+        
+    - **Synergie:** Der Entwickler oder Analyst schreibt den Code im Notebook. Um komplexe Architekturen, Datenflüsse oder Algorithmen zu erklären, erstellt er in Excalidraw eine Skizze, exportiert diese und fügt sie an der passenden Stelle im Notebook ein. Das Ergebnis ist ein reichhaltiges Dokument, das Code, Ausführung und visuelle Erklärung vereint.
+        
+- **Einordnung in den Gesamtkontext:** Diese Vorgehensweise ist Teil des modernen **"Documentation-as-Code"**- und **"Reproducible Research"**-Ansatzes. Statt Dokumentation in separaten Word-Dokumenten zu pflegen, die schnell veralten, wird sie direkt mit dem Code erstellt und versioniert (z. B. in Git). Excalidraw ergänzt hierbei die text- und codebasierten Fähigkeiten der Notebooks um eine schnelle, flexible visuelle Komponente, die oft eingängiger ist als rein code-generierte Plots.
+    
+- **Sicherheitsaspekte:** Bei der gemeinsamen Nutzung von Notebooks in Teams ist Vorsicht geboten. Notebook-Dateien können Code enthalten, der beim Öffnen potenziell schädliche Aktionen ausführt. Daher sollten Notebooks nur aus vertrauenswürdigen Quellen bezogen und ausgeführt werden. Bei der Einbettung von Excalidraw-Diagrammen, die sensible Architekturen zeigen, muss sichergestellt werden, dass das finale Dokument nur für den autorisierten Personenkreis zugänglich ist.
+    
+- **Praxisbeispiel / Analogie:** Stellen Sie sich einen Koch vor, der ein Rezeptbuch schreibt. Das Notebook ist das Buch, in dem er die Zutatenliste und die Kochanweisungen (den Code) aufschreibt. Für einen komplexen Schritt, wie das kunstvolle Falten eines Teigs, macht er eine Serie von Skizzen auf einem Blatt Papier (Excalidraw) und klebt diese Fotos an der richtigen Stelle in sein Rezeptbuch, um den Vorgang visuell zu verdeutlichen.
+    
+- **Fazit / Bedeutung für IT-Profis:** Für Data Scientists, DevOps-Ingenieure und Softwareentwickler ist die Kombination von Notebooks und visuellen Tools wie Excalidraw eine äußerst effektive Methode zur Wissensvermittlung und Dokumentation. Sie ermöglicht es, komplexe technische Sachverhalte klar, nachvollziehbar und ansprechend zu präsentieren, was die Zusammenarbeit im Team und das Onboarding neuer Kollegen erheblich erleichtert.

@@ -1,0 +1,17 @@
+- **Kerndefinition:** **PowerShell** ist ein plattformübergreifendes Framework von Microsoft, das aus einer Kommandozeilen-Shell und einer Skriptsprache besteht. Es ist speziell für die Automatisierung von Verwaltungsaufgaben und die Konfiguration von Systemen konzipiert und arbeitet im Gegensatz zu traditionellen Shells nicht mit Text, sondern mit .NET-Objekten.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Objektorientierung:** Der entscheidende Unterschied zu Shells wie Bash oder der klassischen Windows-Eingabeaufforderung (cmd.exe) ist, dass PowerShell-Befehle, sogenannte **Cmdlets**, strukturierte .NET-Objekte ausgeben. Diese Objekte können über die **Pipeline** (`|`) an das nächste Cmdlet weitergereicht werden, das dann direkt auf deren Eigenschaften und Methoden zugreifen kann. Dies macht das Parsen von Textausgaben überflüssig und die Skripterstellung weitaus robuster und mächtiger.
+        
+    - **Aufbau:** Cmdlets folgen einer konsistenten "Verb-Nomen"-Namenskonvention (z. B. `Get-Process`, `Stop-Service`), was die Lesbarkeit und das Auffinden von Befehlen erleichtert.
+        
+    - **Zweck:** PowerShell ist das primäre Werkzeug zur Verwaltung und Automatisierung aller modernen Microsoft-Produkte, einschließlich Windows Server, Active Directory, Exchange, SQL Server und der Cloud-Plattform Azure.
+        
+- **Einordnung in den Gesamtkontext:** PowerShell hat die traditionelle Eingabeaufforderung in der Windows-Welt als primäres Automatisierungswerkzeug abgelöst. Mit der Einführung von PowerShell Core (heute nur noch PowerShell) wurde es zu einem Open-Source-Projekt und ist auch für macOS und Linux verfügbar, was es zu einem Konkurrenten für Shells wie Bash macht, insbesondere in heterogenen Cloud-Umgebungen. Es ist ein zentrales Werkzeug im **Infrastructure as Code (IaC)**- und **DevOps**-Umfeld.
+    
+- **Sicherheitsaspekte:** PowerShell ist ein zweischneidiges Schwert. Für Administratoren ist es ein mächtiges Werkzeug zur Systemhärtung und zum Sicherheitsmanagement. Für Angreifer ist es jedoch ebenso ein beliebtes Werkzeug für sogenannte **"Living off the Land"-Angriffe**, da es auf den meisten Windows-Systemen vorinstalliert ist und es ermöglicht, bösartige Aktionen durchzuführen, ohne neue Malware auf das System bringen zu müssen. Microsoft hat darauf mit Sicherheitsfunktionen wie **Constrained Language Mode**, **Script Block Logging** und **AMSI (Antimalware Scan Interface)** reagiert, um die Erkennung von schädlichen PowerShell-Skripten zu verbessern.
+    
+- **Praxisbeispiel / Analogie:** Die Arbeit mit einer traditionellen Shell ist wie das Bestellen von Einzelteilen aus einem Katalog und das mühsame Zusammenbauen nach einer Textanleitung. Die Arbeit mit PowerShell ist wie das Bestellen eines vormontierten Baukastens (ein Objekt) mit klaren Schnittstellen. Man kann diesen Baukasten direkt an den nächsten geben, der genau weiß, wie er damit umzugehen hat, ohne ihn erst auseinandernehmen und analysieren zu müssen.
+    
+- **Fazit / Bedeutung für IT-Profis:** Für jeden Windows-Systemadministrator, Cloud-Ingenieur oder IT-Sicherheitsexperten sind PowerShell-Kenntnisse heute unerlässlich. Die Fähigkeit, wiederkehrende Aufgaben zu automatisieren, Systeme in großem Maßstab zu konfigurieren und komplexe Abfragen durchzuführen, steigert die Effizienz und Zuverlässigkeit der IT-Verwaltung enorm. Das Verständnis der Sicherheitsimplikationen ist dabei ebenso entscheidend.

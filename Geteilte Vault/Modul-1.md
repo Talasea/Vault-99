@@ -7,7 +7,7 @@ Es geht hauptsächlich um das Erlangen von Kenntnissen und Fähigkeiten im Berei
 # Themenüberblick
 * Netzwerkkomponenten: Switch, Router
 * Topologien: Die Art und Weise, wie IT-Geräte miteinander verbunden sind
-* Grundlagen [[PowerShell]]
+* Grundlagen [[Geteilte Vault/04_Secret/PowerShell]]
 
 #TODO sauberes Diagram mit den Inhalten erstellen
 

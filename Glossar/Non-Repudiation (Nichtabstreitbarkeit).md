@@ -1,0 +1,15 @@
+- **Kerndefinition:** **Nichtabstreitbarkeit** ist ein Sicherheitsdienst, der gewährleistet, dass eine Partei eine durchgeführte Aktion oder den Versand bzw. Empfang einer Nachricht im Nachhinein nicht leugnen kann. Es schafft einen unwiderlegbaren Beweis, der eine bestimmte Person oder Entität eindeutig mit einer Handlung verknüpft.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Prozess:** Technisch wird Nichtabstreitbarkeit meist durch den Einsatz von **digitalen Signaturen** realisiert. Der Absender verschlüsselt einen Hash-Wert der Nachricht mit seinem privaten Schlüssel. Jeder kann diesen Hash mit dem öffentlichen Schlüssel des Absenders entschlüsseln und mit einem selbst berechneten Hash der Nachricht vergleichen. Stimmen beide überein, ist bewiesen, dass die Nachricht vom Besitzer des privaten Schlüssels stammt (Authentizität), unverändert ist (Integrität) und der Absender die Urheberschaft nicht leugnen kann (Nichtabstreitbarkeit).
+        
+    - **Zweck:** Das Ziel ist die Schaffung von Verbindlichkeit und Beweiskraft in der digitalen Kommunikation. Dies ist unerlässlich für rechtsverbindliche digitale Transaktionen wie Vertragsabschlüsse, Bestellungen oder Finanzüberweisungen.
+        
+- **Einordnung in den Gesamtkontext:** Nichtabstreitbarkeit ist ein erweitertes Sicherheitsziel, das auf den grundlegenden Zielen **Authentizität** und **Integrität** aufbaut. Während Authentizität nur sicherstellt, _wer_ der Absender ist, und Integrität, _dass_ die Nachricht unverändert ist, fügt die Nichtabstreitbarkeit die rechtliche Komponente hinzu, dass die Handlung nicht bestritten werden kann. Sie ist ein zentrales Konzept in Public-Key-Infrastrukturen (PKIs).
+    
+- **Sicherheitsaspekte:** Die gesamte Kette zur Gewährleistung der Nichtabstreitbarkeit muss sicher sein. Dies beginnt bei der sicheren Erzeugung und Verwahrung des privaten Schlüssels (z. B. auf einer Smartcard oder in einem HSM). Wird der private Schlüssel kompromittiert, kann ein Angreifer im Namen des Opfers Handlungen durchführen, die dieses dann nicht mehr abstreiten kann. Vertrauenswürdige Zeitstempel sind ebenfalls oft notwendig, um zu beweisen, _wann_ eine Aktion stattgefunden hat.
+    
+- **Praxisbeispiel / Analogie:** Eine digitale Signatur zur Gewährleistung der Nichtabstreitbarkeit ist das digitale Äquivalent einer handschriftlichen Unterschrift auf einem Papiervertrag durch einen Notar. Die notariell beglaubigte Unterschrift beweist eindeutig, wer den Vertrag unterzeichnet hat, und die Person kann später nicht behaupten, sie hätte nie unterschrieben.
+    
+- **Fazit / Bedeutung für IT-Profis:** Für IT-Sicherheitsarchitekten und Entwickler ist das Verständnis der Nichtabstreitbarkeit entscheidend beim Entwurf von Systemen, die rechtsverbindliche Transaktionen verarbeiten. Sie müssen die korrekten kryptografischen Verfahren implementieren und die gesamte Prozesskette absichern, um die Beweiskraft digitaler Handlungen zu gewährleisten. Dies ist ein Kernaspekt des E-Commerce und der digitalen Verwaltung.

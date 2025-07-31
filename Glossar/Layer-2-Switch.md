@@ -1,0 +1,17 @@
+- **Kerndefinition:** Ein **Layer-2-Switch** ist ein Netzwerkgerät, das auf der zweiten Schicht (Sicherungsschicht bzw. Data Link Layer) des OSI-Modells arbeitet. Seine Hauptaufgabe ist es, Datenpakete (Frames) innerhalb eines lokalen Netzwerks (LAN) intelligent weiterzuleiten, indem er die MAC-Adressen der angeschlossenen Geräte lernt und den Datenverkehr gezielt an den jeweiligen Zielport sendet.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Prozess:** Wenn ein Gerät einen Frame sendet, liest der Switch die Quell-MAC-Adresse und speichert sie zusammen mit der Portnummer in seiner **MAC-Adresstabelle**. Liest er die Ziel-MAC-Adresse, schaut er in seiner Tabelle nach, an welchem Port sich dieses Gerät befindet, und leitet den Frame ausschließlich dorthin weiter. Ist die Ziel-MAC-Adresse unbekannt, sendet der Switch den Frame (ähnlich wie ein Hub) einmalig an alle Ports, außer an den Ursprungsport.
+        
+    - **Schlüsselkomponenten:** Ein Layer-2-Switch besteht aus einer Reihe von Ports und spezialisierter Hardware (ASICs), die das schnelle Nachschlagen in der MAC-Tabelle und die Weiterleitung von Frames ermöglichen.
+        
+    - **Zweck:** Der Hauptzweck ist die Effizienz- und Leistungssteigerung im LAN. Indem er für jeden Port eine separate **Kollisionsdomäne** schafft, eliminiert er die Datenkollisionen, die bei der Verwendung eines Hubs auftreten, und ermöglicht so eine deutlich höhere Gesamtbandbreite im Netzwerk.
+        
+- **Einordnung in den Gesamtkontext:** Der Layer-2-Switch ist die direkte Weiterentwicklung des **Hubs**. Während ein Hub Daten an alle weiterleitet, agiert ein Switch selektiv. Er ist jedoch "dümmer" als ein **Router** oder ein **Layer-3-Switch**, da er keine IP-Adressen versteht und somit nicht zwischen verschiedenen IP-Netzwerken (z. B. Subnetzen oder VLANs) routen kann. Seine Welt beschränkt sich auf die MAC-Adressen innerhalb eines einzigen LAN-Segments.
+    
+- **Sicherheitsaspekte:** Ein Switch erhöht die Sicherheit im Vergleich zu einem Hub erheblich, da er das passive Mitlesen von Datenverkehr (Sniffing) stark erschwert. Dennoch ist er anfällig für spezifische Angriffe wie **MAC-Flooding**, bei dem ein Angreifer die MAC-Tabelle des Switches mit gefälschten Adressen überflutet, woraufhin der Switch in einen "Fail-Open"-Modus verfällt und sich wie ein Hub verhält. Schutzmechanismen wie **Port Security** können solche Angriffe verhindern.
+    
+- **Praxisbeispiel / Analogie:** Ein Hub ist ein Marktschreier, der jede Nachricht über den ganzen Platz ruft. Ein Layer-2-Switch ist hingegen wie ein Postbote in einem großen Bürogebäude. Er lernt schnell, welcher Mitarbeiter (MAC-Adresse) in welchem Büro (Port) sitzt. Erhält er einen Brief, wirft er ihn direkt in das richtige Postfach, anstatt ihn in jedem Büro laut vorzulesen.
+    
+- **Fazit / Bedeutung für IT-Profis:** Layer-2-Switches sind das Fundament moderner lokaler Netzwerke. Jeder IT-Profi muss ihre Funktionsweise, ihre Vorteile gegenüber Hubs und ihre grundlegenden Sicherheitsmechanismen verstehen. Sie sind die Arbeitspferde, die für eine schnelle und effiziente Kommunikation am Netzwerk-Edge, also dem direkten Anschluss der Endgeräte, sorgen.

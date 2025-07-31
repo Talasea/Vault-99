@@ -1,0 +1,15 @@
+- **Kerndefinition:** **MD5** ist eine weitverbreitete kryptografische Hash-Funktion, die aus einer beliebigen Datenmenge einen 128-Bit-Hash-Wert (eine 32-stellige Hexadezimalzahl) erzeugt. Ursprünglich wurde MD5 zur Überprüfung der Datenintegrität verwendet, gilt aber heute aufgrund schwerwiegender Sicherheitslücken als veraltet und unsicher für kryptografische Zwecke.
+    
+- **Detaillierte Erläuterung / Funktionsweise:**
+    
+    - **Prozess:** MD5 verarbeitet die Eingabedaten in 512-Bit-Blöcken und erzeugt durch eine Reihe von logischen Operationen einen eindeutigen, festen 128-Bit-Hash-Wert. Selbst eine minimale Änderung an der Eingabe, wie das Ändern eines einzigen Buchstabens, resultiert in einem völlig anderen Hash-Wert.
+        
+    - **Zweck und Anwendungsfälle:** Früher wurde MD5 intensiv zur Überprüfung der Integrität von heruntergeladenen Dateien (Prüfsummen), zur Speicherung von Passwörtern (als Hash) und in digitalen Signaturen eingesetzt. Aufgrund seiner Geschwindigkeit wird es heute gelegentlich noch für nicht sicherheitskritische Prüfsummen in Datenbanken verwendet.
+        
+- **Einordnung in den Gesamtkontext:** MD5 gehört zur Familie der Message-Digest-Algorithmen, die von Ronald Rivest entworfen wurden. Es ist der Nachfolger von MD4. Aufgrund seiner bekannten Schwächen wurde es in der Praxis weitgehend durch sicherere Hash-Funktionen wie die **SHA-Familie (Secure Hash Algorithm)**, insbesondere **SHA-256** und **SHA-3**, ersetzt.
+    
+- **Sicherheitsaspekte:** Die größte Schwäche von MD5 sind **Kollisionsangriffe (Collision Attacks)**. Es ist mittlerweile mit geringem Rechenaufwand möglich, zwei unterschiedliche Dateien zu erzeugen, die denselben MD5-Hash-Wert haben. Dies untergräbt die Integritätsprüfung fundamental. Ein Angreifer könnte beispielsweise eine harmlose Software und eine Malware mit identischem MD5-Hash erstellen, was eine Überprüfung nutzlos macht. Aus diesem Grund ist die Verwendung von MD5 für digitale Signaturen, SSL-Zertifikate oder die sichere Speicherung von Passwörtern grob fahrlässig.
+    
+- **Praxisbeispiel / Analogie:** Ein MD5-Hash ist wie ein einzigartiger Fingerabdruck für eine Datei. In der Theorie sollte keine andere Datei denselben Fingerabdruck haben. Die Kollisionsanfälligkeit von MD5 bedeutet jedoch, dass es möglich ist, einen "Doppelgänger" zu erschaffen – eine andere Person (Datei) mit exakt demselben Fingerabdruck. Damit verliert der Fingerabdruck als eindeutiges Identifikationsmerkmal seinen Wert.
+    
+- **Fazit / Bedeutung für IT-Profis:** Für IT-Profis ist das Wissen um die Unsicherheit von MD5 von entscheidender Bedeutung. Es ist ihre Verantwortung, sicherzustellen, dass dieser veraltete Algorithmus in sicherheitsrelevanten Systemen nicht mehr verwendet und durch moderne, sichere Alternativen ersetzt wird. Die Verwendung von MD5 in neuen Systemen gilt als schwerwiegender Designfehler.
