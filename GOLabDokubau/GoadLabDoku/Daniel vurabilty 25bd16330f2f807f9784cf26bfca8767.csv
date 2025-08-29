@@ -1,0 +1,11 @@
+﻿Name,CVE_ID,Host_Type,Impact,Port,Recommendation,Service,Severity,Status,Vulnerability_Type
+192.168.20.22,N/A,SQL Server,Information Disclosure,445,Disable anonymous access,SMB,HIGH,VULNERABLE,Anonymous Access
+192.168.20.23,N/A,SQL Server,Information Disclosure,445,Disable anonymous access,SMB,HIGH,VULNERABLE,Anonymous Access
+192.168.20.11,CVE-2021-44228,Domain Controller,Remote Code Execution,Multiple,Apply patches immediately,Various,CRITICAL,VULNERABLE,Log4Shell
+192.168.20.12,CVE-2021-44228,Domain Controller,Remote Code Execution,Multiple,Apply patches immediately,Various,CRITICAL,VULNERABLE,Log4Shell
+192.168.20.10,N/A,Domain Controller,Unauthorized Access,3389,Restrict access via firewall,RDP,HIGH,EXPOSED,Exposed Service
+192.168.20.11,N/A,Domain Controller,Unauthorized Access,3389,Restrict access via firewall,RDP,HIGH,EXPOSED,Exposed Service
+192.168.20.12,N/A,Domain Controller,Unauthorized Access,3389,Restrict access via firewall,RDP,HIGH,EXPOSED,Exposed Service
+192.168.20.22,N/A,SQL Server,Data Breach,1433,Implement authentication,MSSQL,HIGH,EXPOSED,Exposed Database
+192.168.20.23,N/A,SQL Server,Data Breach,1433,Implement authentication,MSSQL,HIGH,EXPOSED,Exposed Database
+All Hosts,N/A,Multiple,System Compromise,Multiple,Change default passwords,Various,HIGH,VULNERABLE,Default Credentials

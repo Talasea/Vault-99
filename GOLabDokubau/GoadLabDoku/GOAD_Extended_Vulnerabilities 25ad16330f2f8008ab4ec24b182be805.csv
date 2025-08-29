@@ -1,0 +1,13 @@
+﻿Name,Affected_Systems,CVSS_Score,Exploitability,GOAD_Specific,Impact,Remediation,Risk_Level,Vulnerability
+Authentication,hodor account (hodor:hodor),"9,8",Trivial,Yes,"Immediate domain access, SMB share staging","Change password immediately, enforce complexity policy",Critical,Weak Password Policy - Username=Password
+Authentication,samwell.tarly (Password: Heartsbane),"9,1",Easy,Yes,GPO abuse via STARKWALLPAPER policy,"Remove password from description, rotate credentials",Critical,Password in LDAP Description Field
+Kerberos,"brandon.stark, missandei","8,5",Moderate,Yes,"Offline password attacks, credential compromise",Enable Kerberos Pre-Authentication for all users,High,ASREPRoasting - PreAuthentication Disabled
+Kerberos,jon.snow (MSSQL service),"8,2",Moderate,Yes,"Service account compromise, MSSQL access","Rotate service account passwords, implement MSA",High,Kerberoasting - Service Principal Names
+Active Directory,sansa.stark account,"8,8",Advanced,Yes,"TGT theft, privilege escalation","Remove unconstrained delegation, implement constrained delegation",High,Unconstrained Delegation
+SMB,BRAAVOS 'all' share (READ/WRITE),9,Trivial,Yes,"Payload staging, lateral movement, data exfiltration","Remove anonymous access, implement proper ACLs",Critical,Anonymous Share Access - Full Permissions
+Certificate Services,CertEnroll share on BRAAVOS,"8,8",Moderate,Yes,"Certificate template abuse, ESC1/ESC2/ESC3 attacks","Restrict CertEnroll access, review certificate templates",High,Certificate Authority Share Exposure
+Database,CASTELBLACK ↔ BRAAVOS trusted links,"8,1",Moderate,Yes,"Cross-server lateral movement, remote code execution","Review link necessity, implement proper authentication",High,MSSQL Trusted Server Links
+Group Policy,STARKWALLPAPER GPO via samwell.tarly,"8,7",Moderate,Yes,Domain-wide privilege escalation via scheduled tasks,"Review and restrict GPO permissions, implement delegation model",High,GPO Write Access Abuse
+Active Directory,sevenkingdoms.local ↔ essos.local trusts,"8,3",Advanced,Yes,"Cross-forest compromise, complete environment takeover","Review trust relationships, implement SID filtering",High,Cross-Forest Trust Abuse
+Web Application,CASTELBLACK IIS server,"7,5",Easy,Yes,"Web shell upload, remote code execution","Disable file upload capability, implement upload restrictions",High,IIS ASPX File Upload
+Web Application,"IIS servers (.10, .22, .23)","5,3",Easy,No,Cross-Site Tracing (XST) attacks,Disable TRACE method in IIS configuration,Medium,HTTP TRACE Method Enabled

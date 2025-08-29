@@ -1,0 +1,7 @@
+﻿Name,Anonymous_Access,Attack_Vector,Comment,Current_User_Access,GOAD_Context,Host_IP,Host_Name,Risk_Level,Share_Type
+ADMIN$,None,"Administrative share, requires admin privileges",Remote Admin,None,Standard Windows admin share,192.168.20.23,BRAAVOS,Medium,STYPE_DISKTREE_HIDDEN
+C$,None,System drive access with admin rights,Default share,None,Standard Windows system share,192.168.20.23,BRAAVOS,Medium,STYPE_DISKTREE_HIDDEN
+CertEnroll,None,"Certificate template enumeration, ESC1/ESC2/ESC3 attacks possible",Active Directory Certificate Services share,READ,ADCS Certificate Authority - Template abuse vector,192.168.20.23,BRAAVOS,Critical,STYPE_DISKTREE
+IPC$,None,"Inter-Process Communication, enumeration and lateral movement",Remote IPC,READ/WRITE,Enabled IPC$ with R/W access,192.168.20.23,BRAAVOS,High,STYPE_IPC_HIDDEN
+all,None,"Full R/W access - payload staging, lateral movement, data exfiltration",Basic RW share for all,READ/WRITE,Custom GOAD share with full permissions - primary attack vector,192.168.20.23,BRAAVOS,Critical,STYPE_DISKTREE
+public,None,"Information disclosure, enumeration of shared files",Basic Read share for all domain users,READ,Public read-only share for domain users,192.168.20.23,BRAAVOS,Medium,STYPE_DISKTREE

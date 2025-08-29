@@ -1,0 +1,11 @@
+﻿Name,Account_Type,Attack_Vector,Description,Domain,Risk_Level,Status
+Guest,Built-in,Standard Account,Built-in account for guest access,north.sevenkingdoms.local,Low,Active
+arya.stark,Domain User,Standard Domain User,Arya Stark,north.sevenkingdoms.local,Medium,Active
+sansa.stark,Domain User,Unconstrained Delegation,Sansa Stark,north.sevenkingdoms.local,High,Active
+brandon.stark,Domain User,ASREPRoasting - NoPreauth enabled,Brandon Stark,north.sevenkingdoms.local,Critical,Active
+rickon.stark,Domain User,Password Spraying - WinterYYYY pattern,Rickon Stark,north.sevenkingdoms.local,Medium,Active
+hodor,Domain User,Password = Username (hodor:hodor),Brainless Giant,north.sevenkingdoms.local,Critical,Active
+jon.snow,Service/Admin,Kerberoasting + MSSQL Admin + Trusted Links,Jon Snow,north.sevenkingdoms.local,Critical,Active
+samwell.tarly,Domain User,Password in LDAP description + GPO abuse,Samwell Tarly (Password : Heartsbane),north.sevenkingdoms.local,Critical,Active
+jeor.mormont,Administrative,Administrative privileges,Jeor Mormont,north.sevenkingdoms.local,High,Active
+sql_svc,Service Account,Service account with elevated privileges,sql service,north.sevenkingdoms.local,High,Active

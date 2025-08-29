@@ -1,0 +1,9 @@
+﻿Name,Affected_Systems,CVSS_Score,Exploitability,Impact,Remediation,Risk_Level,Vulnerability
+Authentication,hodor account (hodor:hodor),"9,8",Trivial,"Initial Access, Privilege Escalation","Change password immediately, enforce complexity policy",Critical,Weak Password Policy
+Authentication,samwell.tarly (Password: Heartsbane),"8,8",Easy,Credential Exposure,"Remove password from description, rotate credentials",High,Password in LDAP Description
+Kerberos,brandon.stark (NoPreauth enabled),"8,2",Moderate,Credential Compromise,Enable Kerberos Pre-Authentication,High,ASREPRoasting
+Kerberos,jon.snow (SPN available),"7,5",Moderate,Service Account Compromise,"Rotate service account passwords, implement MSA",High,Kerberoasting
+SMB,BRAAVOS 'all' share (READ/WRITE),"9,1",Easy,"Payload Staging, Lateral Movement","Remove anonymous access, implement proper ACLs",Critical,Insecure Share Permissions
+Certificate Services,CertEnroll share accessible,"8,8",Moderate,"Authentication Bypass, Privilege Escalation","Restrict CertEnroll access, review certificate templates",High,Certificate Template Abuse
+Database,CASTELBLACK → BRAAVOS,"8,1",Moderate,"Lateral Movement, Code Execution","Review link necessity, implement proper authentication",High,MSSQL Trusted Server Links
+Web Application,"IIS servers (.10, .23)","5,3",Easy,Cross-Site Tracing (XST),Disable TRACE method in IIS configuration,Medium,HTTP TRACE Method Enabled

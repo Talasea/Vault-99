@@ -1,0 +1,6 @@
+﻿Name,Configuration,Network,Notes
+VPN Access,"Username: 24-6, Password: VPNLab2406",192.168.20.0/24 (Lab 2),OpenVPN connection required for lab access
+BloodHound CE,admin:qkq6NNyhpoDx0YwRQ2gp9nsSjX2SJx3r,http://127.0.0.1:8080/ui/login,Community Edition with Neo4j backend
+Domain Structure,"3 Domains, 2 Forests",sevenkingdoms.local (root) + north.sevenkingdoms.local (child) + essos.local (separate),Game of Thrones themed Active Directory environment
+Known Credentials,"hodor:hodor, samwell.tarly:Heartsbane",north.sevenkingdoms.local domain,Immediate access credentials for initial compromise
+Critical Services,"MSSQL, Certificate Services, IIS","CASTELBLACK (.22), BRAAVOS (.23)",Key exploitation targets for lateral movement

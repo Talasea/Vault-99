@@ -1,0 +1,11 @@
+﻿Name,Category,Status,Value
+Total Hosts Discovered,Infrastructure,Complete,5
+Active Directory Domains,Infrastructure,Identified,3
+Domain Controllers,Infrastructure,Enumerated,3
+Database Servers,Infrastructure,Accessible,2
+Domain User Accounts,Accounts,Enumerated,10+
+Critical Vulnerabilities,Security,Confirmed,4
+High Risk Vulnerabilities,Security,Identified,4
+SMB Shares,Resources,Accessible,6
+Attack Paths Identified,Attack Surface,Mapped,3+
+Compromisable Accounts,Accounts,High Confidence,5

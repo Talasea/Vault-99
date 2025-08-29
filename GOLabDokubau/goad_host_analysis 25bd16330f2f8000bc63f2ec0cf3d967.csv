@@ -1,0 +1,7 @@
+﻿Name,Domain,Hostname,Kritische_Ports,LDAP_Anonymous,OS,Risiko_Level,Rolle,SMB_Signierung
+192.168.20.1,N/A,pfSense Gateway,"53,80,443",N/A,FreeBSD 11.2,Medium,Firewall/Gateway,N/A
+192.168.20.10,sevenkingdoms.local,kingslanding.sevenkingdoms.local,"53,80,88,389,445,636,3389,5985",Basis-Info möglich,Windows Server 2019,Medium,Root DC,Erforderlich
+192.168.20.11,north.sevenkingdoms.local,winterfell.north.sevenkingdoms.local,"53,88,389,445,636,3389,5985",Basis-Info möglich,Windows Server 2019,Medium,Child DC,Erforderlich
+192.168.20.12,essos.local,meereen.essos.local,"53,88,389,445,636,3389,5985",Basis-Info möglich,Windows Server 2016,Medium,Forest DC,Erforderlich
+192.168.20.22,north.sevenkingdoms.local,castelblack.north.sevenkingdoms.local,"80,135,445,1433,3389,5985",Kein LDAP,Windows Server 2019,HIGH,SQL Server,NICHT erforderlich ⚠️
+192.168.20.23,essos.local,braavos.essos.local,"80,135,445,1433,3389,5985",Kein LDAP,Windows Server 2016,CRITICAL,SQL Server,Deaktiviert ⚠️

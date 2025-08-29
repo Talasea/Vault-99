@@ -1,0 +1,3 @@
+﻿Name,Account_Type,Attack_Vector,Enumeration_Method,Full_Identity,GOAD_Context,Host_IP,Host_Name,Risk_Level,Session_Start,Username
+BRAAVOS,Service Account,Service account session - potential for privilege escalation,SMB Session Enumeration,BRAAVOS\cloudbase-init,cloudbase-init service active - cloud initialization service,192.168.20.23,BRAAVOS,High,<unknown>,cloudbase-init
+ESSOS,SQL Service Account,SQL service account with elevated privileges - Kerberoasting target,SMB Session Enumeration,ESSOS\sql_svc,MSSQL service account from ESSOS domain active on BRAAVOS,192.168.20.23,BRAAVOS,Critical,<unknown>,sql_svc

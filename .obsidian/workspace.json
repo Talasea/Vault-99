@@ -8,49 +8,35 @@
         "type": "tabs",
         "children": [
           {
-            "id": "828bd80080121e4c",
+            "id": "27727e5491e167c3",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Glossar/Star-Topologie (Sterntopologie).md",
+                "file": "neue ergebnisse vor.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Star-Topologie (Sterntopologie)"
+              "title": "neue ergebnisse vor"
             }
           },
           {
-            "id": "313991aef971f6c2",
+            "id": "c8252f8d79bd2a3d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Glossar/3Wege Handshake.md",
+                "file": "Grundlagen/Hardware/Hardware- Komponenten.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "3Wege Handshake"
-            }
-          },
-          {
-            "id": "f4af0be15c4beecc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "HTML Grundlage.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "HTML Grundlage"
+              "title": "Hardware- Komponenten"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -82,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": " dora",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -219,6 +205,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "obsidian-git:Open Git source control": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
@@ -238,44 +225,44 @@
       "media-extended:Open media": false
     }
   },
-  "active": "f4af0be15c4beecc",
+  "active": "f17f3ee7110e5641",
   "lastOpenFiles": [
-    "Glossar/3Wege Handshake.md",
-    "HTML Grundlage.md",
-    "PromtFürObsidian/Detaillierter Prompt für AnkiKarten Erstellung IT, Cybersecurity  DatenschutzUntitled.md",
-    "Glossar/Store-and-Forward Switching.md",
-    "Glossar/SIEM (Security Information and Event Management).md",
-    "Glossar fehlend.md",
-    "Glossar/Bind & Reverse Shell.md",
-    "Glossar/Netcat.md",
-    "Glossar/WLAN (Wireless Local Area Network).md",
-    "Glossar/IDS (Intrusion Detection System).md",
-    "Glossar/SNMP (Simple Network Management Protocol).md",
-    "Glossar/Penetration Test.md",
-    "Glossar/OTDR (Optical Time-Domain Reflectometer).md",
-    "Glossar/OOP (Object-Oriented Programming).md",
-    "Glossar/Kerberos Glossa.md",
-    "Glossar/IDS Intrusion Detection System.md",
-    "Glossar/DSGVO (Datenschutz-Grundverordnung).md",
-    "Glossar/DLP (Data Loss Prevention).md",
-    "Glossar/CSO (Chief Security Officer).md",
-    "Glossar/Clean Desk Prinzip.md",
-    "Glossar/Business Continuity Management (BCM).md",
-    "Glossar/XMPP (Extensible Messaging and Presence Protocol).md",
-    "Glossar/WinRM (Windows Remote Management).md",
-    "Glossar/WINS (Windows Internet Name Service).md",
-    "Glossar/WireGuard.md",
-    "Glossar/Wireshark.md",
-    "Umschlung/Modul 1/1-Tag 31 - Einführung PowerShell.pdf",
-    "Umschlung/1-Template Einwilligungserklaerung Schulungsteilnehmer.pdf",
-    "Umschlung/Modul 2/Mitschrift 03.02.25.excalidraw",
-    "PromtFürObsidian",
-    "Umschlung/Modul 1/Tag 29 - Rollen und Rechteverwaltung.pdf",
-    "Umschlung/Modul 1/3-16_Uebertragungstechnik.pdf",
-    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/14_Datenspeicher.pdf",
-    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/4-18_Sendearten.pdf",
-    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/3-16_Uebertragungstechnik.pdf",
-    "Umschlung/Modul 1/Computer- und Netzwerkachitektur/2-21_Netzwerktechnik und Komponenten.pdf",
+    "GOLabDokubau/Web Application 25ad16330f2f8124937cdb1b9fd930e2.md",
+    "GOLabDokubau/Web Application 25ad16330f2f812ca60be274509fd7b9.md",
+    "GOLabDokubau/Web Application 25ad16330f2f81d483b6cb37c69d4892.md",
+    "GOLabDokubau/VPN Access 25ad16330f2f81b99359ed495a412a87.md",
+    "GOLabDokubau/viserys targaryen 25ad16330f2f81eea4e0e2a9993b9177.md",
+    "GOLabDokubau/Untitled.md",
+    "GOLabDokubau/Untitled 2.md",
+    "GOLabDokubau/Untitled 1.md",
+    "GOLabDokubau/tywin lannister 25ad16330f2f813099d1ea3212e261d8.md",
+    "GOLabDokubau/tyrion lannister 25ad16330f2f812f9928da5e0b9152bb.md",
+    "GOLabDokubau/Total Hosts Discovered 25ad16330f2f813da426f07d2e13a398.md",
+    "GOLabDokubau/Terminlog 1 goad lab.md",
+    "GOLabDokubau/stannis baratheon 25ad16330f2f818eb2f6f87a95e21e31.md",
+    "GOLabDokubau/Standard Vagrant Zertifikate 25bd16330f2f816cb937d988f264a41f.md",
+    "GOLabDokubau/sql_svc 25ad16330f2f8180b98cf5669b5d10ec.md",
+    "GOLabDokubau/sql_svc 25ad16330f2f81c68f49fe0684943872.md",
+    "GOLabDokubau/SQL Server mit selbst-signierten Zertifikaten 25bd16330f2f81e4b0f9e430185fc8fd.md",
+    "GOLabDokubau/Special Groups 25ad16330f2f81d8b1addfc1631ed1c7.md",
+    "GOLabDokubau/SMB Signierung nicht erforderlich (CASTELBLACK) 25bd16330f2f81428a29eb8963ca9a83.md",
+    "GOLabDokubau/SMB Signierung deaktiviert (BRAAVOS) 25bd16330f2f8161ab8fed801dde20aa.md",
+    "GOLabDokubau/SMB Shares 25ad16330f2f8121b54fe21c660b57c8.md",
+    "GOLabDokubau/SMB 25ad16330f2f81768e08fb3748099abb.md",
+    "GOLabDokubau/SMB 25ad16330f2f81d68834e9fcb4c877df.md",
+    "GOLabDokubau/sansa stark 25ad16330f2f819ea785f579062283d4.md",
+    "GOLabDokubau/sansa stark 25ad16330f2f816e8b0df06026285ffd.md",
+    "GOLabDokubau/samwell tarly 25ad16330f2f8199bc5dc488787faa0f.md",
+    "GOLabDokubau/goad_vulnerability_analysis 25bd16330f2f80b89847ce82f3c7c352_all.csv",
+    "GOLabDokubau/goad_vulnerability_analysis 25bd16330f2f80b89847ce82f3c7c352.csv",
+    "GOLabDokubau/GOAD_Vulnerabilities 25ad16330f2f80c49680f8f6edbfa7a7_all.csv",
+    "GOLabDokubau/GOAD_Vulnerabilities 25ad16330f2f80c49680f8f6edbfa7a7.csv",
+    "GOLabDokubau/GOAD_User_Accounts 25ad16330f2f8084b06bec55bd775ad3_all.csv",
+    "GOLabDokubau/GOAD_User_Accounts 25ad16330f2f8084b06bec55bd775ad3.csv",
+    "GOLabDokubau/GOAD_Tools_Setup_Guide 25ad16330f2f802ea10fc032d52b5052_all.csv",
+    "GOLabDokubau/GOAD_Tools_Setup_Guide 25ad16330f2f802ea10fc032d52b5052.csv",
+    "GOLabDokubau/GOAD_SMB_Shares_Analysis 25ad16330f2f80f3bea5e0fcb6e71e0a_all.csv",
+    "GOLabDokubau/GOAD_SMB_Shares_Analysis 25ad16330f2f80f3bea5e0fcb6e71e0a.csv",
     "Medien/Pasted image 20250717165055.png",
     "Medien/c76041581592a61eab45a759994bbe48_MD5 1.jpeg",
     "Medien/3036b35363479263ddf39c9c09e2bd66_MD5 1.jpeg",

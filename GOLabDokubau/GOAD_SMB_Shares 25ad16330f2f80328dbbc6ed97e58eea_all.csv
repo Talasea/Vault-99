@@ -1,0 +1,7 @@
+﻿Name,Access_Level,Anonymous_Access,Description,Host,Risk_Level,Type
+ADMIN$,None,No,Remote Admin - Properly secured,BRAAVOS (192.168.20.23),Low,Administrative
+C$,None,No,Default share - Properly secured,BRAAVOS (192.168.20.23),Low,Administrative
+CertEnroll,READ,No,Active Directory Certificate Services share - Certificate template abuse potential,BRAAVOS (192.168.20.23),Critical,Certificate Services
+IPC$,READ/WRITE,No,Remote IPC - Allows enumeration,BRAAVOS (192.168.20.23),Medium,Inter Process
+all,READ/WRITE,No,"Basic RW share for all - Critical security issue, payload staging possible",BRAAVOS (192.168.20.23),Critical,User Share
+public,READ,No,Basic Read share for all domain users,BRAAVOS (192.168.20.23),Medium,User Share

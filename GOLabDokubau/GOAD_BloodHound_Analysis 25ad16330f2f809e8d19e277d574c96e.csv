@@ -1,0 +1,9 @@
+﻿Name,Cypher_Query,Expected_Results,GOAD_Specific,Hops_Count,Query_Name,Risk_Level
+Critical Path Discovery,"MATCH (u:User {name:""HODOR@NORTH.SEVENKINGDOMS.LOCAL""}), (g:Group) WHERE g.name CONTAINS ""DOMAIN ADMINS"" MATCH p=shortestPath((u)-[*1..]->(g)) RETURN p",Direct path via password reuse or GPO abuse,Yes,1-2,Shortest Path to Domain Admin (hodor),Critical
+Kerberos Attack Targets,"MATCH (u:User) WHERE u.dontreqpreauth=true RETURN u.name, u.domain, u.description","brandon.stark@NORTH.SEVENKINGDOMS.LOCAL, missandei@ESSOS.LOCAL",Yes,1,ASREPRoastable Users,High
+Kerberos Attack Targets,"MATCH (u:User) WHERE u.hasspn=true RETURN u.name, u.serviceprincipalnames, u.domain",jon.snow@NORTH.SEVENKINGDOMS.LOCAL (MSSQL SPN),Yes,1,Kerberoastable Service Accounts,High
+Privilege Escalation,"MATCH (c:Computer) WHERE c.unconstraineddelegation=true RETURN c.name, c.domain",sansa.stark computer account (if applicable),Yes,1,Unconstrained Delegation,Critical
+Cross-Domain Attacks,"MATCH (d1:Domain)-[r:TrustedBy]->(d2:Domain) RETURN d1.name, type(r), d2.name",sevenkingdoms.local ↔ essos.local trust relationships,Yes,Variable,Cross-Forest Trusts,High
+Special Groups,"MATCH (g:Group) WHERE g.name CONTAINS ""ACROSS"" OR g.name CONTAINS ""DRAGONS"" OR g.name CONTAINS ""SPYS"" RETURN g.name, g.domain","AcrossTheSea, DragonsFriends, Spys groups",Yes,2-3,Cross-Forest Groups,High
+Privilege Escalation,"MATCH p=(n)-[r:GenericAll]->(m) WHERE n.domain <> m.domain RETURN n.name, m.name, n.domain, m.domain LIMIT 10",Cross-domain GenericAll relationships,Yes,1,GenericAll Rights (Dangerous),Critical
+GPO Abuse,"MATCH p=(u:User)-[r:GenericWrite|WriteDacl]->(g:GPO) RETURN u.name, g.name, u.domain",samwell.tarly → STARKWALLPAPER GPO,Yes,1,GPO Write Access,Critical

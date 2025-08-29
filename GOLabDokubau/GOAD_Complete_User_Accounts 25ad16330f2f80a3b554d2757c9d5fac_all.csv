@@ -1,0 +1,29 @@
+﻿Name,Account_Type,Attack_Vector,Description,Domain,Group_Membership,Risk_Level,Status
+robert.baratheon,Domain Admin,"Protected User, Domain Admin privileges",King of Westeros,sevenkingdoms.local,"Domain Admins, Small Council",High,Active
+cersei.lannister,Domain Admin,"Domain Admin, high-value target",Queen of Westeros,sevenkingdoms.local,Domain Admins,Critical,Active
+tywin.lannister,Senior User,ForceChangePassword on jaime + Password in SYSVOL,Hand of the King,sevenkingdoms.local,Lannister Family,Critical,Active
+jaime.lannister,Domain User,GenericWrite on joffrey.baratheon,Kingslayer,sevenkingdoms.local,Lannister Family,High,Active
+tyrion.lannister,Domain User,Self membership on Small Council,The Imp,sevenkingdoms.local,"Small Council, Lannister Family",Medium,Active
+joffrey.baratheon,Domain User,Write DACL on tyrion.lannister,Prince,sevenkingdoms.local,Baratheon Family,High,Active
+stannis.baratheon,Domain User,GenericAll on computer kingslanding,Lord of Dragonstone,sevenkingdoms.local,Baratheon Family,High,Active
+renly.baratheon,Sensitive User,WriteDACL on container,Lord of Storm's End,sevenkingdoms.local,Baratheon Family,High,Active
+petyr.baelish,Domain User,Small Council membership,Littlefinger,sevenkingdoms.local,Small Council,Medium,Active
+lord.varys,High Privilege,GenericAll on Domain Admins + SDHolder abuse,Master of Whisperers,sevenkingdoms.local,Small Council,Critical,Active
+maester.pycelle,Domain User,"Small Council membership, RDP access",Grand Maester,sevenkingdoms.local,Small Council,Medium,Active
+eddard.stark,Domain Admin,"Domain Admin, LLMNR bot (5min intervals)",Lord of Winterfell,north.sevenkingdoms.local,"Domain Admins, Stark Family",Critical,Active
+catelyn.stark,Domain Admin,Domain Admin privileges,Lady of Winterfell,north.sevenkingdoms.local,"Domain Admins, Stark Family",High,Active
+robb.stark,Domain Admin,"Domain Admin, RESPONDER bot (3min intervals)",Young Wolf,north.sevenkingdoms.local,"Domain Admins, Stark Family",High,Active
+arya.stark,Domain User,"MSSQL execute as user, access to 'all' share",Arya Stark,north.sevenkingdoms.local,Stark Family,High,Active
+sansa.stark,Domain User,Unconstrained Delegation + keywalking password,Sansa Stark,north.sevenkingdoms.local,Stark Family,Critical,Active
+brandon.stark,Domain User,ASREPRoasting - Kerberos PreAuth disabled,Brandon Stark,north.sevenkingdoms.local,Stark Family,Critical,Active
+rickon.stark,Domain User,Password Spraying - WinterYYYY pattern,Rickon Stark,north.sevenkingdoms.local,Stark Family,Medium,Active
+jon.snow,Service/Admin Account,MSSQL Admin + Kerberoasting + Trusted Links,Jon Snow,north.sevenkingdoms.local,"Night Watch, Stark Family",Critical,Active
+hodor,Domain User,Password = Username (hodor:hodor),Brainless Giant,north.sevenkingdoms.local,Domain Users,Critical,Active
+samwell.tarly,Domain User,Password in LDAP description + GPO abuse STARKWALLPAPER,Samwell Tarly (Password : Heartsbane),north.sevenkingdoms.local,Night Watch,Critical,Active
+jeor.mormont,Local Admin,Admin CASTELBLACK + password in SYSVOL script,Jeor Mormont,north.sevenkingdoms.local,"Mormont Family, Night Watch",High,Active
+sql_svc,Service Account,Service account with elevated SQL privileges,SQL service account,north.sevenkingdoms.local,Service Accounts,High,Active
+daenerys.targaryen,Domain Admin,Domain Admin ESSOS forest,Mother of Dragons,essos.local,"Domain Admins, Targaryen Family",Critical,Active
+viserys.targaryen,Domain User,Write property on jorah.mormont,The Beggar King,essos.local,Targaryen Family,High,Active
+missandei,Domain User,ASREPRoasting + GenericAll on khal.drogo,Advisor to Daenerys,essos.local,Targaryen Retinue,Critical,Active
+jorah.mormont,Service Account,MSSQL execute as login + Trusted Links + LAPS password reading,Ser Jorah the Andal,essos.local,"Mormont Family, Spys Group",Critical,Active
+khal.drogo,Administrative,MSSQL Admin + GenericAll on viserys + Shadow Credentials,Great Khal,essos.local,"Dothraki, Domain Admins",Critical,Active
